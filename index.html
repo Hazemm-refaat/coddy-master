@@ -1,0 +1,1993 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coddy Master - Official Odoo Partner</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/favicon.png" sizes="180x180">
+  <meta property="og:image" content="assets/dark-logo-nobg.png">
+  <!-- NOTE: Switching from Play CDN to a compiled production build (Vite/PostCSS) in Phase 2. Keep utility classes highly organized. -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              orange: '#FF4A1C',
+              carbon: '#0D1117',
+              gray: '#F5F7FA',
+              white: '#FFFFFF'
+            }
+          },
+          fontFamily: {
+            sans: ['Poppins', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            fancy: ['"Proxima Nova"', 'Montserrat', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:wght@400;500;600&family=Tajawal:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="bg-brand-gray text-gray-900 antialiased selection:bg-brand-orange selection:text-white overflow-x-hidden">
+
+  <!-- TOP NAVIGATION -->
+  <nav
+    class="fixed top-0 start-0 w-full z-50 py-5 px-6 md:px-12 flex justify-between items-center hero-nav opacity-0 transition-colors duration-300" id="main-nav">
+    <a href="#" class="flex items-center shrink-0" aria-label="Coddy Master Home">
+      <img src="assets/dark-logo-nobg.png" alt="Coddy Master" class="max-h-10 md:max-h-12 w-auto object-contain">
+    </a>
+    <div class="hidden md:flex items-center gap-8 text-white/80 font-medium text-sm">
+      <a href="#services" class="hover:text-white transition-colors" data-i18n="nav-services">Services</a>
+      <a href="#solutions" class="hover:text-white transition-colors" data-i18n="nav-solutions">Odoo Solutions</a>
+      <a href="#team" class="hover:text-white transition-colors" data-i18n="nav-leadership">Our Team</a>
+      <a href="#videos" class="hover:text-white transition-colors" data-i18n="nav-videos">Videos</a>
+      <a href="#careers" class="hover:text-white transition-colors" data-i18n="nav-careers">Careers</a>
+      <a href="#contact" class="hover:text-white transition-colors" data-i18n="nav-contact">Contact Us</a>
+    </div>
+    <div class="flex items-center gap-4">
+      <button id="lang-toggle" class="text-white hover:text-brand-orange text-base font-semibold tracking-wide transition-colors" data-i18n="lang-toggle-btn">Ã˜Â§Ã™â€žÃ˜Â¹Ã˜Â±Ã˜Â¨Ã™Å Ã˜Â©</button>
+      <a href="#contact"
+        class="hidden md:inline-flex px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-none text-xs font-medium transition-all backdrop-blur-md border border-white/10 shadow-sm" data-i18n="nav-cta">Book Consultation</a>
+      <!-- Mobile Hamburger Button -->
+      <button id="menu-toggle" class="md:hidden text-white hover:text-brand-orange w-8 h-8 flex items-center justify-center focus:outline-none relative" aria-label="Open menu" aria-expanded="false">
+        <!-- Hamburger icon (3 lines) -->
+        <svg id="icon-hamburger" class="absolute transition-all duration-300" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <line x1="3" y1="6" x2="19" y2="6"/>
+          <line x1="3" y1="11" x2="19" y2="11"/>
+          <line x1="3" y1="16" x2="19" y2="16"/>
+        </svg>
+        <!-- X icon (close state) -->
+        <svg id="icon-close-hamburger" class="absolute transition-all duration-300 opacity-0 scale-75" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <line x1="5" y1="5" x2="17" y2="17"/>
+          <line x1="17" y1="5" x2="5" y2="17"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+  
+  <!-- MOBILE MENU OVERLAY -->
+  <div id="mobile-menu-overlay" class="fixed inset-0 bg-brand-carbon/70 backdrop-blur-md z-[60] opacity-0 pointer-events-none transition-opacity duration-400 md:hidden" aria-hidden="true"></div>
+
+  <!-- MOBILE FULL-SCREEN DRAWER -->
+  <div id="mobile-menu" class="fixed inset-0 z-[70] bg-brand-carbon flex flex-col justify-between p-8 md:p-12 translate-x-full md:hidden transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" aria-hidden="true">
+    <button id="mobile-menu-close" class="absolute top-6 end-6 w-10 h-10 border border-white/10 flex items-center justify-center text-white/60 hover:text-brand-orange hover:border-brand-orange/40 transition-all duration-300 group" aria-label="Close menu">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" class="transition-transform duration-300 group-hover:rotate-90">
+        <line x1="3" y1="3" x2="15" y2="15"/>
+        <line x1="15" y1="3" x2="3" y2="15"/>
+      </svg>
+    </button>
+    <div class="flex flex-col gap-8 pt-20">
+      <a href="#services" class="mobile-nav-link text-white text-lg font-medium hover:text-brand-orange transition-colors" data-i18n="nav-services">Services</a>
+      <a href="#solutions" class="mobile-nav-link text-white text-lg font-medium hover:text-brand-orange transition-colors" data-i18n="nav-solutions">Odoo Solutions</a>
+      <a href="#team" class="mobile-nav-link text-white text-lg font-medium hover:text-brand-orange transition-colors" data-i18n="nav-leadership">Our Team</a>
+      <a href="#videos" class="mobile-nav-link text-white text-lg font-medium hover:text-brand-orange transition-colors" data-i18n="nav-videos">Videos</a>
+      <a href="#careers" class="mobile-nav-link text-white text-lg font-medium hover:text-brand-orange transition-colors" data-i18n="nav-careers">Careers</a>
+      <a href="#contact" class="mobile-nav-link text-white text-lg font-medium hover:text-brand-orange transition-colors" data-i18n="nav-contact">Contact Us</a>
+    </div>
+    <!-- Mobile CTA removed per request; keep mobile menu links only -->
+  </div>
+
+  <!-- CINEMATIC HERO AREA -->
+  <section
+    class="relative w-full min-h-[95vh] flex flex-col justify-center bg-brand-carbon z-10 pt-32 pb-24 px-6 md:px-12 overflow-hidden hero-wrapper">
+
+    <!-- Cinematic Video Background with Dark Overlay -->
+    <div class="absolute inset-0 w-full h-full z-0 transform scale-105" id="hero-bg">
+      
+      <!-- Cinematic Background Video -->
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        class="hero-video"
+        preload="metadata"
+        loading="lazy"
+      >
+        <source src="assets\videos\hero_background.mp4" type="video/mp4">
+      </video>
+
+      <!-- Premium Gradient Overlay -->
+      <div class="hero-overlay"></div>
+
+      <!-- Extra soft vertical fade to merge into transition at the bottom of the section -->
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-brand-carbon/20 to-brand-carbon/85 z-[2]"></div>
+    </div>
+
+    <!-- Soft glowing ambient box (sharp) for depth -->
+    <div
+      class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-brand-orange/[0.03] blur-[120px] pointer-events-none mix-blend-screen z-[3]">
+    </div>
+
+    <!-- Main Content (Centered, balanced, layered on top with z-index) -->
+    <div class="hero-content w-full max-w-7xl mx-auto flex flex-col items-center text-center">
+
+      <!-- Sharp Badge -->
+      <div
+        class="hero-element inline-flex items-center gap-2 px-4 py-1.5 rounded-none border border-white/10 bg-white/5 backdrop-blur-md mb-8 shadow-lg">
+        <span class="w-2 h-2 bg-brand-orange animate-pulse"></span>
+        <span class="text-white/80 text-xs font-mono uppercase tracking-widest" data-i18n="hero-badge">Enterprise System Integrator</span>
+      </div>
+
+      <!-- Fancy Editorial Typography -->
+      <h1
+        class="font-fancy font-bold leading-[1.1] tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-[4.2rem] text-white max-w-5xl mx-auto mb-8">
+        <span class="block hero-title-line overflow-hidden pb-2"><span
+            class="inline-block hero-title-text" data-i18n="hero-title-1">From Chaos</span></span>
+        <span class="block hero-title-line overflow-hidden pb-3 text-brand-orange font-bold"><span
+            class="inline-block hero-title-text" data-i18n="hero-title-2">to Control.</span></span> 
+      </h1>
+
+      <!-- Elegant and precise Concept Subtext -->
+      <p class="hero-element text-white/75 text-lg sm:text-xl font-normal max-w-3xl mx-auto mb-12 leading-relaxed" data-i18n="hero-subtitle">
+        Where financial control meets futuristic intelligence. We orchestrate unified Odoo ERP ecosystems and high-impact Virtual CFO leadership to transition ambitious GCC enterprises from fragmentation to absolute operational mastery.
+      </p>
+
+      <!-- Clean Premium CTA Area (Completely Sharp) -->
+      <div class="hero-element flex flex-col sm:flex-row items-center gap-5 w-full sm:w-auto">
+        <a href="#contact"
+          class="magnetic-btn w-full sm:w-auto bg-brand-orange hover:bg-[#FF5A2F] text-white px-8 py-4 rounded-none font-semibold tracking-wide transition-all shadow-[0_0_30px_rgba(255,74,28,0.20)] flex items-center justify-center gap-2">
+          <span data-i18n="hero-deploy-btn">Deploy Your ERP</span>
+          <svg class="w-4 h-4 arrow-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+        </a>
+        <a href="#brand-strip"
+          class="w-full sm:w-auto text-white/70 hover:text-white px-8 py-4 font-medium text-sm transition-colors text-center group flex items-center justify-center gap-2">
+          <span data-i18n="hero-secondary-btn">See the Architecture</span>
+          <span
+            class="w-4 h-[1px] bg-white/30 group-hover:w-6 group-hover:bg-brand-orange transition-all duration-300"></span>
+        </a>
+      </div>
+
+      <!-- Trust Indicator Logos removed per request -->
+    </div>
+  </section>
+
+  <!-- BRAND STRIP SECTION (Luxury Light UI - Completely Sharp) -->
+  <section id="brand-strip" class="relative z-20 -mt-16 px-6 md:px-12 w-full max-w-7xl mx-auto">
+    <!-- The glassmorphism container overlapping the dark/light divide -->
+    <div
+      class="brand-strip-container bg-white/95 backdrop-blur-2xl border border-white/80 rounded-none shadow-[0_20px_60px_-15px_rgba(0,0,0,0.12)] p-8 md:p-12 flex flex-col lg:flex-row items-center justify-between gap-10 relative overflow-hidden">
+
+      <!-- Subtle warm orange glow behind the strip contents -->
+      <div class="absolute -top-32 -right-32 w-80 h-80 bg-brand-orange/5 blur-[80px] pointer-events-none">
+      </div>
+<!-- Text / Concept -->
+<div class="flex flex-col items-center lg:items-start text-center lg:text-left z-10 max-w-lg">
+  <div class="text-brand-orange font-mono text-xs uppercase tracking-widest mb-2 font-semibold" data-i18n="brand-badge">
+    Official Odoo Partner
+  </div>
+
+  <h3 class="text-2xl md:text-3xl font-fancy font-bold text-brand-carbon tracking-tight mb-3" data-i18n="brand-title">
+    Smart ERP Solutions with Odoo
+  </h3>
+
+  <p class="text-gray-600 text-sm md:text-base leading-relaxed" data-i18n="brand-desc">
+    As an official Odoo Partner, we help businesses implement and customize Odoo ERP systems to simplify operations, improve financial visibility, and support smarter business decisions.
+  </p>
+</div>
+
+      <!-- Large Logos -->
+      <div class="flex items-center gap-6 md:gap-12 z-10 flex-wrap justify-center">
+        <!-- Coddy Master Logo -->
+        <div class="flex items-center">
+          <img src="assets/light-logo-nobg.png" alt="Coddy Master" class="h-10 md:h-14 w-auto object-contain">
+        </div>
+
+        <!-- Premium Divider -->
+        <div class="w-[1px] h-10 md:h-14 bg-gray-200"></div>
+
+        <!-- Odoo Logo -->
+        <img src="assets/odoo-logo.jpeg" alt="Odoo"
+          class="h-10 md:h-14 w-auto object-contain mix-blend-multiply opacity-90">
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TRUSTED BY CLIENT MARQUEE SECTION (Integrated Clean Transition) -->
+  <section id="trusted-by" class="relative z-10 pt-24 pb-20 bg-[#F8F9FA] overflow-hidden">
+    
+    <!-- Faint Orange Glow Accents (matching brand palette) -->
+    <div class="absolute top-1/4 left-1/3 w-96 h-96 bg-brand-orange/[0.015] rounded-none blur-[100px] pointer-events-none"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-brand-orange/[0.01] rounded-none blur-[100px] pointer-events-none"></div>
+
+    <!-- Soft Noise Texture Overlay -->
+    <div class="absolute inset-0 opacity-[0.012] pointer-events-none mix-blend-overlay bg-noise"></div>
+
+    <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+      
+      
+      <!-- Section Header (Targeted by GSAP) -->
+      <div class="text-center max-w-3xl mx-auto mb-16 trusted-header">
+        <!-- Small label -->
+        <span class="text-brand-orange font-mono text-xs uppercase tracking-widest mb-3 font-semibold inline-block" data-i18n="trusted-badge">
+          Trusted By Growing Businesses
+        </span>
+        <!-- Elegant headline -->
+        <h2 class="text-3xl md:text-4xl font-fancy font-bold tracking-tight text-brand-carbon mt-2" data-i18n="trusted-title">
+          Built for ambitious companies scaling with confidence.
+        </h2>
+      </div>
+
+      <!-- Infinite Marquee Wrapper -->
+      <div class="relative w-full overflow-hidden marquee-wrapper py-6" dir="ltr">
+        <!-- Subtle gradient fade masks on left/right edges -->
+        <div class="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-[#F8F9FA] via-[#F8F9FA]/90 to-transparent z-10 pointer-events-none"></div>
+        <div class="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-[#F8F9FA] via-[#F8F9FA]/90 to-transparent z-10 pointer-events-none"></div>
+
+        <!-- Marquee Track (Seamless GPU Accelerated Infinite Loop) -->
+        <div class="flex items-center gap-12 md:gap-20 marquee-track py-2">
+          <!-- Logo Set 1 -->
+          <div class="marquee-logo flex-shrink-0">
+            <img src="assets/EgyptTour.png" alt="Egypt Tour" class="h-14 md:h-16 w-auto object-contain pointer-events-auto">
+          </div>
+          <div class="marquee-logo flex-shrink-0">
+            <img src="assets/FayrouzTours.png" alt="Fayrouz Tours" class="h-8 md:h-10 w-auto object-contain pointer-events-auto">
+          </div>
+          <div class="marquee-logo flex-shrink-0">
+            <img src="assets/N-Designs.png" alt="N Designs" class="h-12 md:h-14 w-auto object-contain pointer-events-auto">
+          </div>
+
+          <!-- Logo Set 2 -->
+          <div class="marquee-logo flex-shrink-0">
+            <img src="assets/EgyptTour.png" alt="Egypt Tour" class="h-14 md:h-16 w-auto object-contain pointer-events-auto">
+          </div>
+          <div class="marquee-logo flex-shrink-0">
+            <img src="assets/FayrouzTours.png" alt="Fayrouz Tours" class="h-8 md:h-10 w-auto object-contain pointer-events-auto">
+          </div>
+          <div class="marquee-logo flex-shrink-0">
+            <img src="assets/N-Designs.png" alt="N Designs" class="h-12 md:h-14 w-auto object-contain pointer-events-auto">
+          </div>
+
+          <!-- Logo Set 3 -->
+          <div class="marquee-logo flex-shrink-0">
+            <img src="assets/EgyptTour.png" alt="Egypt Tour" class="h-14 md:h-16 w-auto object-contain pointer-events-auto">
+          </div>
+          <div class="marquee-logo flex-shrink-0">
+            <img src="assets/FayrouzTours.png" alt="Fayrouz Tours" class="h-8 md:h-10 w-auto object-contain pointer-events-auto">
+          </div>
+          <div class="marquee-logo flex-shrink-0">
+            <img src="assets/N-Designs.png" alt="N Designs" class="h-12 md:h-14 w-auto object-contain pointer-events-auto">
+          </div>
+
+          <!-- Logo Set 4 -->
+          <div class="marquee-logo flex-shrink-0">
+            <img src="assets/EgyptTour.png" alt="Egypt Tour" class="h-14 md:h-16 w-auto object-contain pointer-events-auto">
+          </div>
+          <div class="marquee-logo flex-shrink-0">
+            <img src="assets/FayrouzTours.png" alt="Fayrouz Tours" class="h-8 md:h-10 w-auto object-contain pointer-events-auto">
+          </div>
+          <div class="marquee-logo flex-shrink-0">
+            <img src="assets/N-Designs.png" alt="N Designs" class="h-12 md:h-14 w-auto object-contain pointer-events-auto">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- OUR SERVICES SECTION (Luxury Light UI - Completely Sharp) -->
+  <section id="services" class="relative z-10 pt-32 pb-32 bg-[#F8F9FA] overflow-hidden border-t border-gray-100">
+    
+    <!-- Fine technical grid background (Blueprint ledger lines) -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="w-full h-full bg-[linear-gradient(to_right,#E2E8F0_1px,transparent_1px),linear-gradient(to_bottom,#E2E8F0_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-[0.22]"></div>
+    </div>
+
+    <!-- Soft Orange Glow Accents -->
+    <div class="absolute top-1/2 left-1/4 w-[500px] h-[500px] bg-brand-orange/[0.015] rounded-none blur-[120px] pointer-events-none"></div>
+
+    <!-- Soft Noise Texture Overlay -->
+    <div class="absolute inset-0 opacity-[0.01] pointer-events-none mix-blend-overlay bg-noise"></div>
+
+    <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+      
+      
+      <!-- Enterprise Advisory Banner -->
+      <div class="w-full h-[400px] rounded-none overflow-hidden relative mb-24 shadow-2xl mt-8">
+        <img src="assets/enterprise-office.jpg" alt="Enterprise Advisory" class="absolute inset-0 w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-brand-carbon/90 via-brand-carbon/20 to-transparent"></div>
+        <div class="absolute bottom-10 left-10 right-10">
+          <span class="text-brand-orange font-mono text-xs uppercase tracking-widest mb-3 block font-semibold" data-i18n="svc-banner-badge">Premium CFO Advisory</span>
+          <h3 class="text-3xl md:text-4xl font-fancy font-bold text-white tracking-tight" data-i18n="svc-banner-title">Scale with unshakeable financial governance.</h3>
+        </div>
+      </div>
+      
+      <!-- Section Header (Targeted by GSAP) -->
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-20 services-header opacity-0">
+        <div class="max-w-2xl">
+          <span class="text-brand-orange font-mono text-xs uppercase tracking-widest mb-3 font-semibold inline-block" data-i18n="svc-badge">
+            Our Core Solutions
+          </span>
+          <h2 class="text-3xl md:text-5xl font-fancy font-bold tracking-tight text-brand-carbon mt-2 leading-[1.1]" data-i18n="svc-title">
+            Engineered for executive control and seamless scale.
+          </h2>
+        </div>
+        <div class="max-w-md">
+          <p class="text-gray-500 text-base md:text-lg leading-relaxed" data-i18n="svc-desc">
+            We integrate OdooÃ¢â‚¬â„¢s powerful automated architecture with strategic financial leadership to eliminate operational friction and establish absolute operational truth.
+          </p>
+        </div>
+      </div>
+
+      <!-- Symmetrical 3-Column Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        
+        <!-- Card 1: ERP Implementation -->
+        <div class="flex flex-col justify-between bg-white border border-gray-100 p-8 md:p-10 shadow-[0_15px_40px_-20px_rgba(0,0,0,0.04)] hover:shadow-[0_25px_60px_-15px_rgba(255,74,28,0.06)] hover:border-brand-orange/20 transition-shadow transition-colors duration-500 group relative overflow-hidden service-card opacity-0">
+          <!-- Card Glow Accent -->
+          <div class="absolute -top-32 -left-32 w-64 h-64 bg-brand-orange/5 rounded-none blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          
+          <div class="flex flex-col gap-6 flex-1 z-10">
+            <!-- Header & Badge -->
+            <div class="flex justify-between items-start gap-4">
+              <span class="text-brand-orange font-mono text-xs uppercase tracking-wider font-semibold px-3 py-1 bg-brand-orange/5 border border-brand-orange/10">01 / ERP Systems</span>
+              <div class="text-right">
+                <div class="text-brand-carbon font-mono text-base font-bold">99.4%</div>
+                <div class="text-gray-400 font-mono text-[8px] uppercase tracking-wider">Workflow Automation</div>
+              </div>
+            </div>
+            
+            <div class="flex flex-col flex-1">
+              <h3 class="text-2xl font-bold text-brand-carbon tracking-tight mb-3">
+                <span class="lang-en">ERP Systems Implementation</span>
+                <span class="lang-ar">Ã˜ÂªÃ™â€ Ã™ÂÃ™Å Ã˜Â° Ã™â€ Ã˜Â¸Ã™â€¦ ERP</span>
+              </h3>
+              <p class="text-gray-500 text-sm leading-relaxed mb-6">
+                <span class="lang-en">We design, customize, and deploy fully automated Odoo ERP ecosystems built to streamline operations and unite workflows across your entire enterprise.</span>
+                <span class="lang-ar">Ã™â€ Ã˜ÂµÃ™â€¦Ã™â€¦ Ã™Ë†Ã™â€ Ã™â€ Ã˜Â´Ã˜Â± Ã™â€¦Ã™â€ Ã˜Â¸Ã™Ë†Ã™â€¦Ã˜Â§Ã˜Âª Odoo Ã˜Â§Ã™â€žÃ™â€¦Ã˜Â¤Ã˜ÂªÃ™â€¦Ã˜ÂªÃ˜Â© Ã˜Â¨Ã˜Â§Ã™â€žÃ™Æ’Ã˜Â§Ã™â€¦Ã™â€ž Ã™â€žÃ˜ÂªÃ˜Â¨Ã˜Â³Ã™Å Ã˜Â· Ã˜Â¹Ã™â€¦Ã™â€žÃ™Å Ã˜Â§Ã˜ÂªÃ™Æ’Ã™â€¦ Ã™Ë†Ã™â€¦Ã™Ë†Ã˜Â§Ã˜Â¡Ã™â€¦Ã˜Â© Ã˜Â³Ã™Å Ã˜Â± Ã˜Â§Ã™â€žÃ˜Â¹Ã™â€¦Ã™â€ž Ã˜Â¹Ã˜Â¨Ã˜Â± Ã™â€¦Ã˜Â¤Ã˜Â³Ã˜Â³Ã˜ÂªÃ™Æ’Ã™â€¦ Ã˜Â¨Ã˜Â£Ã™Æ’Ã™â€¦Ã™â€žÃ™â€¡Ã˜Â§.</span>
+              </p>
+              
+              <!-- Modular Tags -->
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span class="text-xs font-mono bg-brand-gray text-gray-500 px-3 py-1 border border-gray-100">Odoo Core</span>
+                <span class="text-xs font-mono bg-brand-gray text-gray-500 px-3 py-1 border border-gray-100">Supply Chain</span>
+                <span class="text-xs font-mono bg-brand-gray text-gray-500 px-3 py-1 border border-gray-100">Manufacturing</span>
+              </div>
+
+              <!-- Structured Image Frame -->
+              <div class="overflow-hidden aspect-square bg-white border border-gray-100 relative group-hover:border-brand-orange/10 transition-colors duration-500 w-full mt-auto flex items-center justify-center">
+                <img src="assets/ERP-Implementation.png" alt="ERP Systems Implementation" class="w-full h-full object-cover mix-blend-multiply group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy">
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer CTA -->
+          <div class="mt-8 pt-6 border-t border-gray-100 flex justify-between items-center relative z-10">
+            <a href="#contact" class="inline-flex items-center gap-2 text-brand-carbon group-hover:text-brand-orange text-xs font-semibold tracking-wider transition-colors">
+              <span>EXPLORE SOLUTION</span>
+              <svg class="w-4 h-4 arrow-icon transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+            </a>
+            <span class="text-gray-300 font-mono text-xs">GCC Scalable</span>
+          </div>
+        </div>
+
+        <!-- Card 2: Virtual CFO -->
+        <div class="flex flex-col justify-between bg-white border border-gray-100 p-8 md:p-10 shadow-[0_15px_40px_-20px_rgba(0,0,0,0.04)] hover:shadow-[0_25px_60px_-15px_rgba(255,74,28,0.06)] hover:border-brand-orange/20 transition-shadow transition-colors duration-500 group relative overflow-hidden service-card opacity-0">
+          <!-- Card Glow Accent -->
+          <div class="absolute -top-32 -left-32 w-64 h-64 bg-brand-orange/5 rounded-none blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          
+          <div class="flex flex-col gap-6 flex-1 z-10">
+            <!-- Header & Badge -->
+            <div class="flex justify-between items-start gap-4">
+              <span class="text-brand-orange font-mono text-xs uppercase tracking-wider font-semibold px-3 py-1 bg-brand-orange/5 border border-brand-orange/10">02 / CFO Advisory</span>
+              <div class="text-right">
+                <div class="text-brand-carbon font-mono text-base font-bold">+32%</div>
+                <div class="text-gray-400 font-mono text-[8px] uppercase tracking-wider">Avg Profit Increase</div>
+              </div>
+            </div>
+            
+            <div class="flex flex-col flex-1">
+              <h3 class="text-2xl font-bold text-brand-carbon tracking-tight mb-3">
+                <span class="lang-en">Virtual CFO Leadership</span>
+                <span class="lang-ar">Ã™â€šÃ™Å Ã˜Â§Ã˜Â¯Ã˜Â© Ã˜Â§Ã™â€žÃ™â€¦Ã˜Â¯Ã™Å Ã˜Â± Ã˜Â§Ã™â€žÃ™â€¦Ã˜Â§Ã™â€žÃ™Å  Ã˜Â§Ã™â€žÃ˜Â§Ã™ÂÃ˜ÂªÃ˜Â±Ã˜Â§Ã˜Â¶Ã™Å </span>
+              </h3>
+              <p class="text-gray-500 text-sm leading-relaxed mb-6">
+                <span class="lang-en">Elite strategic capital management, advanced cash-flow modeling, and strategic boardroom advisory to direct your scaling operations.</span>
+                <span class="lang-ar">Ã˜Â¥Ã˜Â¯Ã˜Â§Ã˜Â±Ã˜Â© Ã˜Â±Ã˜Â£Ã˜Â³ Ã™â€¦Ã˜Â§Ã™â€ž Ã˜Â§Ã˜Â³Ã˜ÂªÃ˜Â±Ã˜Â§Ã˜ÂªÃ™Å Ã˜Â¬Ã™Å  Ã™â€¦Ã˜ÂªÃ™â€šÃ˜Â¯Ã™â€¦Ã˜Å’ Ã™â€ Ã™â€¦Ã˜Â°Ã˜Â¬Ã˜Â© Ã˜ÂªÃ˜Â¯Ã™ÂÃ™â€šÃ˜Â§Ã˜Âª Ã™â€ Ã™â€šÃ˜Â¯Ã™Å Ã˜Â© Ã˜Â§Ã˜Â­Ã˜ÂªÃ˜Â±Ã˜Â§Ã™ÂÃ™Å Ã˜Â©Ã˜Å’ Ã™Ë†Ã˜Â§Ã˜Â³Ã˜ÂªÃ˜Â´Ã˜Â§Ã˜Â±Ã˜Â§Ã˜Âª Ã™â€žÃ™â€¦Ã˜Â¬Ã™â€žÃ˜Â³ Ã˜Â§Ã™â€žÃ˜Â¥Ã˜Â¯Ã˜Â§Ã˜Â±Ã˜Â© Ã™â€žÃ˜ÂªÃ™Ë†Ã˜Â¬Ã™Å Ã™â€¡ Ã™â€¦Ã˜Â³Ã™Å Ã˜Â±Ã˜Â© Ã˜Â§Ã™â€žÃ˜ÂªÃ™Ë†Ã˜Â³Ã˜Â¹.</span>
+              </p>
+              
+              <!-- Modular Tags -->
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span class="text-xs font-mono bg-brand-gray text-gray-500 px-3 py-1 border border-gray-100">Capital Strategy</span>
+                <span class="text-xs font-mono bg-brand-gray text-gray-500 px-3 py-1 border border-gray-100">Cash Flow</span>
+                <span class="text-xs font-mono bg-brand-gray text-gray-500 px-3 py-1 border border-gray-100">Board Advisory</span>
+              </div>
+
+              <!-- Structured Image Frame -->
+              <div class="overflow-hidden aspect-square bg-white border border-gray-100 relative group-hover:border-brand-orange/10 transition-colors duration-500 w-full mt-auto flex items-center justify-center">
+                <img src="assets/VirtualCFO.png" alt="Virtual CFO Leadership" class="w-full h-full object-cover mix-blend-multiply group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy">
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer CTA -->
+          <div class="mt-8 pt-6 border-t border-gray-100 flex justify-between items-center relative z-10">
+            <a href="#contact" class="inline-flex items-center gap-2 text-brand-carbon group-hover:text-brand-orange text-xs font-semibold tracking-wider transition-colors">
+              <span>ENGAGE ADVISORY</span>
+              <svg class="w-4 h-4 arrow-icon transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+            </a>
+            <span class="text-gray-300 font-mono text-xs">Strategic Capital</span>
+          </div>
+        </div>
+
+        <!-- Card 3: Outsourced Accounting -->
+        <div class="flex flex-col justify-between bg-white border border-gray-100 p-8 md:p-10 shadow-[0_15px_40px_-20px_rgba(0,0,0,0.04)] hover:shadow-[0_25px_60px_-15px_rgba(255,74,28,0.06)] hover:border-brand-orange/20 transition-shadow transition-colors duration-500 group relative overflow-hidden service-card opacity-0">
+          <!-- Card Glow Accent -->
+          <div class="absolute -top-32 -left-32 w-64 h-64 bg-brand-orange/5 rounded-none blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          
+          <div class="flex flex-col gap-6 flex-1 z-10">
+            <!-- Header & Badge -->
+            <div class="flex justify-between items-start gap-4">
+              <span class="text-brand-orange font-mono text-xs uppercase tracking-wider font-semibold px-3 py-1 bg-brand-orange/5 border border-brand-orange/10">03 / Operations</span>
+              <div class="text-right">
+                <div class="text-brand-carbon font-mono text-base font-bold">100%</div>
+                <div class="text-gray-400 font-mono text-[8px] uppercase tracking-wider">Audit Compliance</div>
+              </div>
+            </div>
+            
+            <div class="flex flex-col flex-1">
+              <h3 class="text-2xl font-bold text-brand-carbon tracking-tight mb-3">
+                <span class="lang-en">Outsourced Accounting</span>
+                <span class="lang-ar">Ã˜Â§Ã™â€žÃ™â€¦Ã˜Â­Ã˜Â§Ã˜Â³Ã˜Â¨Ã˜Â© Ã˜Â§Ã™â€žÃ˜Â®Ã˜Â§Ã˜Â±Ã˜Â¬Ã™Å Ã˜Â©</span>
+              </h3>
+              <p class="text-gray-500 text-sm leading-relaxed mb-6">
+                <span class="lang-en">Flawless day-to-day bookkeeping, automated ledger organization, strict tax reconciliations, and real-time executive reports.</span>
+                <span class="lang-ar">Ã™â€¦Ã˜Â³Ã™Æ’ Ã˜Â¯Ã™ÂÃ˜Â§Ã˜ÂªÃ˜Â± Ã™Å Ã™Ë†Ã™â€¦Ã™Å  Ã˜Â¯Ã™â€šÃ™Å Ã™â€šÃ˜Å’ Ã˜ÂªÃ™â€ Ã˜Â¸Ã™Å Ã™â€¦ Ã˜Â¢Ã™â€žÃ™Å  Ã™â€žÃ˜Â¯Ã™ÂÃ˜ÂªÃ˜Â± Ã˜Â§Ã™â€žÃ˜Â£Ã˜Â³Ã˜ÂªÃ˜Â§Ã˜Â°Ã˜Å’ Ã˜ÂªÃ˜Â³Ã™Ë†Ã™Å Ã˜Â§Ã˜Âª Ã˜Â¶Ã˜Â±Ã™Å Ã˜Â¨Ã™Å Ã˜Â© Ã˜ÂµÃ˜Â§Ã˜Â±Ã™â€¦Ã˜Â©Ã˜Å’ Ã™Ë†Ã˜ÂªÃ™â€šÃ˜Â§Ã˜Â±Ã™Å Ã˜Â± Ã˜ÂªÃ™â€ Ã™ÂÃ™Å Ã˜Â°Ã™Å Ã˜Â© Ã™â€žÃ˜Â­Ã˜Â¸Ã™Å Ã˜Â©.</span>
+              </p>
+              
+              <!-- Modular Tags -->
+              <div class="flex flex-wrap gap-2 mb-6">
+                <span class="text-xs font-mono bg-brand-gray text-gray-500 px-3 py-1 border border-gray-100">Bookkeeping</span>
+                <span class="text-xs font-mono bg-brand-gray text-gray-500 px-3 py-1 border border-gray-100">Tax & VAT</span>
+                <span class="text-xs font-mono bg-brand-gray text-gray-500 px-3 py-1 border border-gray-100">Audit Ready</span>
+              </div>
+
+              <!-- Structured Image Frame -->
+              <div class="overflow-hidden aspect-square bg-white border border-gray-100 relative group-hover:border-brand-orange/10 transition-colors duration-500 w-full mt-auto flex items-center justify-center">
+                <img src="assets/OutsourceAccounting.png" alt="Outsourced Accounting" class="w-full h-full object-cover mix-blend-multiply group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy">
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer CTA -->
+          <div class="mt-8 pt-6 border-t border-gray-100 flex justify-between items-center relative z-10">
+            <a href="#contact" class="inline-flex items-center gap-2 text-brand-carbon group-hover:text-brand-orange text-xs font-semibold tracking-wider transition-colors">
+              <span>SECURE OPERATIONS</span>
+              <svg class="w-4 h-4 arrow-icon transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+            </a>
+            <span class="text-gray-300 font-mono text-xs">Flawless Ledgers</span>
+          </div>
+        </div>
+
+      </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ODOO SOLUTIONS SECTION (Luxury Light UI - Symmetrical Grid) -->
+
+  <section id="solutions" class="relative z-10 pt-32 pb-32 bg-white overflow-hidden border-t border-gray-100">
+    
+    <!-- Fine technical grid background (Blueprint ledger lines) -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="w-full h-full bg-[linear-gradient(to_right,#E2E8F0_1px,transparent_1px),linear-gradient(to_bottom,#E2E8F0_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-[0.18]"></div>
+    </div>
+
+    <!-- Soft Orange Glow Accent -->
+    <div class="absolute top-1/2 right-1/4 w-[500px] h-[500px] bg-brand-orange/[0.012] rounded-none blur-[120px] pointer-events-none"></div>
+    <div class="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] bg-brand-orange/[0.01] rounded-none blur-[120px] pointer-events-none"></div>
+
+    <!-- Soft Noise Texture Overlay -->
+    <div class="absolute inset-0 opacity-[0.008] pointer-events-none mix-blend-overlay bg-noise"></div>
+
+    <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+      
+      
+      <!-- Section Header (Targeted by GSAP) -->
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-20 solutions-header opacity-0">
+        <div class="max-w-2xl">
+          <span class="text-brand-orange font-mono text-xs uppercase tracking-widest mb-3 font-semibold inline-block" data-i18n="sol-badge">
+            Odoo Ecosystem
+          </span>
+          <h2 class="text-3xl md:text-5xl font-fancy font-bold tracking-tight text-brand-carbon mt-2 leading-[1.1]" data-i18n="sol-title">
+            Complete Odoo Solutions Hub
+          </h2>
+          <p class="text-gray-500 text-sm md:text-base leading-relaxed mt-4" data-i18n="sol-desc">
+            Click any module to explore how it orchestrates unified workflows and establishes a single source of operational truth.
+          </p>
+        </div>
+        <div class="shrink-0">
+          <!-- Official Partner Badge -->
+          <div class="inline-flex items-center gap-3 px-4 py-2 border border-gray-100 bg-brand-gray shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]">
+            <img src="assets/odoo-logo.jpeg" alt="Odoo" class="h-6 w-auto object-contain mix-blend-multiply">
+            <span class="w-1.5 h-1.5 bg-[#8F5F8F] animate-pulse"></span>
+            <span class="text-gray-600 text-[10px] font-mono uppercase tracking-widest font-semibold" data-i18n="sol-partner">Official Partner</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bento Grid Layout -->
+      <div id="solutions-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-stretch">
+        
+        <!-- Accounting Card -->
+        <div class="odoo-card group relative bg-white border border-gray-100 p-6 md:p-8 flex flex-col justify-between shadow-[0_10px_30px_-15px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_-10px_rgba(255,74,28,0.05)] hover:border-brand-orange/20 transition-all duration-500 cursor-pointer opacity-0" data-mod="accounting" tabindex="0">
+          <div class="absolute -top-24 -left-24 w-48 h-48 bg-brand-orange/[0.03] rounded-none blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          <div>
+            <div class="w-12 h-12 bg-brand-gray border border-gray-100 flex items-center justify-center mb-6 group-hover:bg-brand-orange group-hover:border-brand-orange transition-colors duration-300">
+              <img src="assets/odoo modules/accounting.svg" alt="Accounting" class="w-6 h-6 object-contain group-hover:brightness-0 group-hover:invert transition-all duration-300">
+            </div>
+            <h3 class="text-lg font-bold text-brand-carbon tracking-tight mb-2 group-hover:text-brand-orange transition-colors duration-300" data-i18n="sol-accounting-title">Accounting</h3>
+            <p class="text-gray-400 font-mono text-[10px] uppercase tracking-wider" data-i18n="sol-accounting-cat">finance</p>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-gray-50/50 mt-4">
+            <span class="text-xs font-semibold text-gray-500 group-hover:text-brand-orange transition-colors duration-300 flex items-center gap-1.5">
+              <span data-i18n="sol-explore">EXPLORE MODULE</span>
+              <svg class="w-3.5 h-3.5 arrow-icon transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Inventory Card -->
+        <div class="odoo-card group relative bg-white border border-gray-100 p-6 md:p-8 flex flex-col justify-between shadow-[0_10px_30px_-15px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_-10px_rgba(255,74,28,0.05)] hover:border-brand-orange/20 transition-all duration-500 cursor-pointer opacity-0" data-mod="inventory" tabindex="0">
+          <div class="absolute -top-24 -left-24 w-48 h-48 bg-brand-orange/[0.03] rounded-none blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          <div>
+            <div class="w-12 h-12 bg-brand-gray border border-gray-100 flex items-center justify-center mb-6 group-hover:bg-brand-orange group-hover:border-brand-orange transition-colors duration-300">
+              <img src="assets/odoo modules/inventory.svg" alt="Inventory" class="w-6 h-6 object-contain group-hover:brightness-0 group-hover:invert transition-all duration-300">
+            </div>
+            <h3 class="text-lg font-bold text-brand-carbon tracking-tight mb-2 group-hover:text-brand-orange transition-colors duration-300" data-i18n="sol-inventory-title">Inventory</h3>
+            <p class="text-gray-400 font-mono text-[10px] uppercase tracking-wider" data-i18n="sol-inventory-cat">operations</p>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-gray-50/50 mt-4">
+            <span class="text-xs font-semibold text-gray-500 group-hover:text-brand-orange transition-colors duration-300 flex items-center gap-1.5">
+              <span data-i18n="sol-explore">EXPLORE MODULE</span>
+              <svg class="w-3.5 h-3.5 arrow-icon transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Manufacturing Card (Double width on lg/md) -->
+        <div class="odoo-card group relative bg-white border border-gray-100 p-6 md:p-8 flex flex-col justify-between shadow-[0_10px_30px_-15px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_-10px_rgba(255,74,28,0.05)] hover:border-brand-orange/20 transition-all duration-500 cursor-pointer lg:col-span-2 md:col-span-2 opacity-0" data-mod="manufacturing" tabindex="0">
+          <div class="absolute -top-24 -left-24 w-48 h-48 bg-brand-orange/[0.03] rounded-none blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          <div>
+            <div class="w-12 h-12 bg-brand-gray border border-gray-100 flex items-center justify-center mb-6 group-hover:bg-brand-orange group-hover:border-brand-orange transition-colors duration-300">
+              <img src="assets/odoo modules/manufacturing.svg" alt="Manufacturing" class="w-6 h-6 object-contain group-hover:brightness-0 group-hover:invert transition-all duration-300">
+            </div>
+            <h3 class="text-lg font-bold text-brand-carbon tracking-tight mb-2 group-hover:text-brand-orange transition-colors duration-300" data-i18n="sol-manufacturing-title">Manufacturing</h3>
+            <p class="text-gray-400 font-mono text-[10px] uppercase tracking-wider mb-3" data-i18n="sol-manufacturing-cat">production Ã‚Â· mrp Ã‚Â· quality</p>
+            <p class="text-gray-500 text-sm leading-relaxed mb-4" data-i18n="sol-manufacturing-desc">Fully integrated MRP, PLM, Quality, Maintenance, and Shop Floor. Plan work orders, track machinery, and schedule production.</p>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-gray-50/50 mt-4">
+            <span class="text-xs font-semibold text-gray-500 group-hover:text-brand-orange transition-colors duration-300 flex items-center gap-1.5">
+              <span data-i18n="sol-explore">EXPLORE MODULE</span>
+              <svg class="w-3.5 h-3.5 arrow-icon transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- CRM & Sales Card -->
+        <div class="odoo-card group relative bg-white border border-gray-100 p-6 md:p-8 flex flex-col justify-between shadow-[0_10px_30px_-15px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_-10px_rgba(255,74,28,0.05)] hover:border-brand-orange/20 transition-all duration-500 cursor-pointer opacity-0" data-mod="crm" tabindex="0">
+          <div class="absolute -top-24 -left-24 w-48 h-48 bg-brand-orange/[0.03] rounded-none blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          <div>
+            <div class="w-12 h-12 bg-brand-gray border border-gray-100 flex items-center justify-center mb-6 group-hover:bg-brand-orange group-hover:border-brand-orange transition-colors duration-300">
+              <img src="assets/odoo modules/crm.svg" alt="CRM & Sales" class="w-6 h-6 object-contain group-hover:brightness-0 group-hover:invert transition-all duration-300">
+            </div>
+            <h3 class="text-lg font-bold text-brand-carbon tracking-tight mb-2 group-hover:text-brand-orange transition-colors duration-300" data-i18n="sol-crm-title">CRM & Sales</h3>
+            <p class="text-gray-400 font-mono text-[10px] uppercase tracking-wider" data-i18n="sol-crm-cat">pipeline</p>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-gray-50/50 mt-4">
+            <span class="text-xs font-semibold text-gray-500 group-hover:text-brand-orange transition-colors duration-300 flex items-center gap-1.5">
+              <span data-i18n="sol-explore">EXPLORE MODULE</span>
+              <svg class="w-3.5 h-3.5 arrow-icon transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Dashboard Card -->
+        <div class="odoo-card mobile-hidden hidden md:flex group relative bg-white border border-gray-100 p-6 md:p-8 flex-col justify-between shadow-[0_10px_30px_-15px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_-10px_rgba(255,74,28,0.05)] hover:border-brand-orange/20 transition-all duration-500 cursor-pointer opacity-0" data-mod="dashboard" tabindex="0">
+          <div class="absolute -top-24 -left-24 w-48 h-48 bg-brand-orange/[0.03] rounded-none blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          <div>
+            <div class="w-12 h-12 bg-brand-gray border border-gray-100 flex items-center justify-center mb-6 group-hover:bg-brand-orange group-hover:border-brand-orange transition-colors duration-300">
+              <img src="assets/odoo modules/dashboard.svg" alt="Dashboard" class="w-6 h-6 object-contain group-hover:brightness-0 group-hover:invert transition-all duration-300">
+            </div>
+            <h3 class="text-lg font-bold text-brand-carbon tracking-tight mb-2 group-hover:text-brand-orange transition-colors duration-300" data-i18n="sol-dashboard-title">Dashboard</h3>
+            <p class="text-gray-400 font-mono text-[10px] uppercase tracking-wider" data-i18n="sol-dashboard-cat">analytics</p>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-gray-50/50 mt-4">
+            <span class="text-xs font-semibold text-gray-500 group-hover:text-brand-orange transition-colors duration-300 flex items-center gap-1.5">
+              <span data-i18n="sol-explore">EXPLORE MODULE</span>
+              <svg class="w-3.5 h-3.5 arrow-icon transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- eCommerce Card -->
+        <div class="odoo-card mobile-hidden hidden md:flex group relative bg-white border border-gray-100 p-6 md:p-8 flex-col justify-between shadow-[0_10px_30px_-15px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_-10px_rgba(255,74,28,0.05)] hover:border-brand-orange/20 transition-all duration-500 cursor-pointer opacity-0" data-mod="ecommerce" tabindex="0">
+          <div class="absolute -top-24 -left-24 w-48 h-48 bg-brand-orange/[0.03] rounded-none blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          <div>
+            <div class="w-12 h-12 bg-brand-gray border border-gray-100 flex items-center justify-center mb-6 group-hover:bg-brand-orange group-hover:border-brand-orange transition-colors duration-300">
+              <img src="assets/odoo modules/eCommerce.svg" alt="eCommerce" class="w-6 h-6 object-contain group-hover:brightness-0 group-hover:invert transition-all duration-300">
+            </div>
+            <h3 class="text-lg font-bold text-brand-carbon tracking-tight mb-2 group-hover:text-brand-orange transition-colors duration-300" data-i18n="sol-ecommerce-title">eCommerce</h3>
+            <p class="text-gray-400 font-mono text-[10px] uppercase tracking-wider" data-i18n="sol-ecommerce-cat">store Ã‚Â· catalog</p>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-gray-50/50 mt-4">
+            <span class="text-xs font-semibold text-gray-500 group-hover:text-brand-orange transition-colors duration-300 flex items-center gap-1.5">
+              <span data-i18n="sol-explore">EXPLORE MODULE</span>
+              <svg class="w-3.5 h-3.5 arrow-icon transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Documents Card -->
+        <div class="odoo-card mobile-hidden hidden md:flex group relative bg-white border border-gray-100 p-6 md:p-8 flex-col justify-between shadow-[0_10px_30px_-15px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_-10px_rgba(255,74,28,0.05)] hover:border-brand-orange/20 transition-all duration-500 cursor-pointer opacity-0" data-mod="documents" tabindex="0">
+          <div class="absolute -top-24 -left-24 w-48 h-48 bg-brand-orange/[0.03] rounded-none blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          <div>
+            <div class="w-12 h-12 bg-brand-gray border border-gray-100 flex items-center justify-center mb-6 group-hover:bg-brand-orange group-hover:border-brand-orange transition-colors duration-300">
+              <img src="assets/odoo modules/documents.svg" alt="Documents" class="w-6 h-6 object-contain group-hover:brightness-0 group-hover:invert transition-all duration-300">
+            </div>
+            <h3 class="text-lg font-bold text-brand-carbon tracking-tight mb-2 group-hover:text-brand-orange transition-colors duration-300" data-i18n="sol-documents-title">Documents</h3>
+            <p class="text-gray-400 font-mono text-[10px] uppercase tracking-wider" data-i18n="sol-documents-cat">dms Ã‚Â· workflow</p>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-gray-50/50 mt-4">
+            <span class="text-xs font-semibold text-gray-500 group-hover:text-brand-orange transition-colors duration-300 flex items-center gap-1.5">
+              <span data-i18n="sol-explore">EXPLORE MODULE</span>
+              <svg class="w-3.5 h-3.5 arrow-icon transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Planning Card -->
+        <div class="odoo-card mobile-hidden hidden md:flex group relative bg-white border border-gray-100 p-6 md:p-8 flex-col justify-between shadow-[0_10px_30px_-15px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_-10px_rgba(255,74,28,0.05)] hover:border-brand-orange/20 transition-all duration-500 cursor-pointer opacity-0" data-mod="planning" tabindex="0">
+          <div class="absolute -top-24 -left-24 w-48 h-48 bg-brand-orange/[0.03] rounded-none blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          <div>
+            <div class="w-12 h-12 bg-brand-gray border border-gray-100 flex items-center justify-center mb-6 group-hover:bg-brand-orange group-hover:border-brand-orange transition-colors duration-300">
+              <img src="assets/odoo modules/planning.svg" alt="Planning" class="w-6 h-6 object-contain group-hover:brightness-0 group-hover:invert transition-all duration-300">
+            </div>
+            <h3 class="text-lg font-bold text-brand-carbon tracking-tight mb-2 group-hover:text-brand-orange transition-colors duration-300" data-i18n="sol-planning-title">Planning</h3>
+            <p class="text-gray-400 font-mono text-[10px] uppercase tracking-wider" data-i18n="sol-planning-cat">scheduling</p>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-gray-50/50 mt-4">
+            <span class="text-xs font-semibold text-gray-500 group-hover:text-brand-orange transition-colors duration-300 flex items-center gap-1.5">
+              <span data-i18n="sol-explore">EXPLORE MODULE</span>
+              <svg class="w-3.5 h-3.5 arrow-icon transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Maintenance Card -->
+        <div class="odoo-card mobile-hidden hidden md:flex group relative bg-white border border-gray-100 p-6 md:p-8 flex-col justify-between shadow-[0_10px_30px_-15px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_-10px_rgba(255,74,28,0.05)] hover:border-brand-orange/20 transition-all duration-500 cursor-pointer opacity-0" data-mod="maintenance" tabindex="0">
+          <div class="absolute -top-24 -left-24 w-48 h-48 bg-brand-orange/[0.03] rounded-none blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          <div>
+            <div class="w-12 h-12 bg-brand-gray border border-gray-100 flex items-center justify-center mb-6 group-hover:bg-brand-orange group-hover:border-brand-orange transition-colors duration-300">
+              <img src="assets/odoo modules/maintenance.svg" alt="Maintenance" class="w-6 h-6 object-contain group-hover:brightness-0 group-hover:invert transition-all duration-300">
+            </div>
+            <h3 class="text-lg font-bold text-brand-carbon tracking-tight mb-2 group-hover:text-brand-orange transition-colors duration-300" data-i18n="sol-maintenance-title">Maintenance</h3>
+            <p class="text-gray-400 font-mono text-[10px] uppercase tracking-wider" data-i18n="sol-maintenance-cat">assets Ã‚Â· pm</p>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-gray-50/50 mt-4">
+            <span class="text-xs font-semibold text-gray-500 group-hover:text-brand-orange transition-colors duration-300 flex items-center gap-1.5">
+              <span data-i18n="sol-explore">EXPLORE MODULE</span>
+              <svg class="w-3.5 h-3.5 arrow-icon transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Sign Card -->
+        <div class="odoo-card mobile-hidden hidden md:flex group relative bg-white border border-gray-100 p-6 md:p-8 flex-col justify-between shadow-[0_10px_30px_-15px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_-10px_rgba(255,74,28,0.05)] hover:border-brand-orange/20 transition-all duration-500 cursor-pointer opacity-0" data-mod="sign" tabindex="0">
+          <div class="absolute -top-24 -left-24 w-48 h-48 bg-brand-orange/[0.03] rounded-none blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          <div>
+            <div class="w-12 h-12 bg-brand-gray border border-gray-100 flex items-center justify-center mb-6 group-hover:bg-brand-orange group-hover:border-brand-orange transition-colors duration-300">
+              <img src="assets/odoo modules/sign.svg" alt="Sign" class="w-6 h-6 object-contain group-hover:brightness-0 group-hover:invert transition-all duration-300">
+            </div>
+            <h3 class="text-lg font-bold text-brand-carbon tracking-tight mb-2 group-hover:text-brand-orange transition-colors duration-300" data-i18n="sol-sign-title">Sign</h3>
+            <p class="text-gray-400 font-mono text-[10px] uppercase tracking-wider" data-i18n="sol-sign-cat">digital signatures</p>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-gray-50/50 mt-4">
+            <span class="text-xs font-semibold text-gray-500 group-hover:text-brand-orange transition-colors duration-300 flex items-center gap-1.5">
+              <span data-i18n="sol-explore">EXPLORE MODULE</span>
+              <svg class="w-3.5 h-3.5 arrow-icon transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Subscriptions Card -->
+        <div class="odoo-card mobile-hidden hidden md:flex group relative bg-white border border-gray-100 p-6 md:p-8 flex-col justify-between shadow-[0_10px_30px_-15px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_-10px_rgba(255,74,28,0.05)] hover:border-brand-orange/20 transition-all duration-500 cursor-pointer opacity-0" data-mod="subscriptions" tabindex="0">
+          <div class="absolute -top-24 -left-24 w-48 h-48 bg-brand-orange/[0.03] rounded-none blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          <div>
+            <div class="w-12 h-12 bg-brand-gray border border-gray-100 flex items-center justify-center mb-6 group-hover:bg-brand-orange group-hover:border-brand-orange transition-colors duration-300">
+              <img src="assets/odoo modules/subscriptions.svg" alt="Subscriptions" class="w-6 h-6 object-contain group-hover:brightness-0 group-hover:invert transition-all duration-300">
+            </div>
+            <h3 class="text-lg font-bold text-brand-carbon tracking-tight mb-2 group-hover:text-brand-orange transition-colors duration-300" data-i18n="sol-subs-title">Subscriptions</h3>
+            <p class="text-gray-400 font-mono text-[10px] uppercase tracking-wider" data-i18n="sol-subs-cat">recurring Ã‚Â· billing</p>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-gray-50/50 mt-4">
+            <span class="text-xs font-semibold text-gray-500 group-hover:text-brand-orange transition-colors duration-300 flex items-center gap-1.5">
+              <span data-i18n="sol-explore">EXPLORE MODULE</span>
+              <svg class="w-3.5 h-3.5 arrow-icon transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- AI & Intelligence Card (Full width row) -->
+        <div class="odoo-card mobile-hidden hidden md:flex group relative bg-white border border-gray-100 p-8 flex-col md:flex-row gap-6 justify-between items-start md:items-center shadow-[0_10px_30px_-15px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_-10px_rgba(255,74,28,0.05)] hover:border-brand-orange/20 transition-all duration-500 cursor-pointer lg:col-span-4 md:col-span-3 sm:col-span-2 opacity-0" data-mod="ai" tabindex="0">
+          <div class="absolute -top-32 -left-32 w-64 h-64 bg-brand-orange/[0.04] rounded-none blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          
+          <div class="flex flex-col md:flex-row gap-6 items-start md:items-center flex-1">
+            <div class="w-14 h-14 bg-brand-gray border border-gray-100 flex items-center justify-center shrink-0 group-hover:bg-brand-orange group-hover:border-brand-orange transition-colors duration-300">
+              <img src="assets/odoo modules/ai.svg" alt="AI & Intelligence" class="w-7 h-7 object-contain group-hover:brightness-0 group-hover:invert transition-all duration-300">
+            </div>
+            
+            <div>
+              <div class="flex items-center gap-3 flex-wrap mb-1">
+                <h3 class="text-xl font-bold text-brand-carbon tracking-tight group-hover:text-brand-orange transition-colors duration-300" data-i18n="sol-ai-title">AI & Intelligence</h3>
+                <span class="text-[9px] font-mono bg-brand-orange/10 text-brand-orange px-2 py-0.5 uppercase tracking-widest font-semibold border border-brand-orange/20 animate-pulse" data-i18n="sol-ai-badge">Futuristic Tech</span>
+              </div>
+              <p class="text-gray-400 font-mono text-[10px] uppercase tracking-wider mb-2" data-i18n="sol-ai-cat">automation Ã‚Â· predictions Ã‚Â· studio</p>
+              <p class="text-gray-500 text-sm leading-relaxed max-w-xl" data-i18n="sol-ai-desc">Infuse smart machine learning into your ERP. Smart sales forecast, auto-generated descriptions, predictive inventory refills, and custom AI actions.</p>
+            </div>
+          </div>
+          
+          <div class="w-full md:w-auto shrink-0 flex items-center justify-between pt-4 md:pt-0 border-t md:border-t-0 border-gray-50 mt-4 md:mt-0">
+            <span class="text-xs font-semibold text-gray-500 group-hover:text-brand-orange transition-colors duration-300 flex items-center gap-1.5">
+              <span data-i18n="sol-explore-ai">EXPLORE FUTURE TECH</span>
+              <svg class="w-3.5 h-3.5 arrow-icon transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Show All Toggle for Mobile Grid -->
+      <div class="flex justify-center mt-12 md:hidden">
+        <button id="toggle-modules" class="px-8 py-3.5 bg-brand-carbon hover:bg-brand-carbon/90 text-white font-semibold text-sm tracking-wide transition-all duration-300 flex items-center gap-2">
+          <span id="toggle-modules-text" data-i18n="show-all-btn">Show All Solutions</span>
+          <svg class="w-4 h-4 transform transition-transform duration-300" id="toggle-modules-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+      </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Sidebar Overlay -->
+  <div id="sov" class="fixed inset-0 bg-brand-carbon/30 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-all duration-500"></div>
+  
+  <!-- Premium Sidebar Panel -->
+  <aside id="sb" class="fixed top-0 end-[-100%] lg:end-[-500px] w-full max-w-[480px] h-screen bg-white border-s border-gray-100 z-50 overflow-y-auto transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[-20px_0_60px_-10px_rgba(0,0,0,0.06)] flex flex-col justify-between" aria-hidden="true" role="dialog">
+    <!-- Header -->
+    <div class="p-8 border-b border-gray-100 relative">
+      <button class="absolute top-6 end-6 w-10 h-10 border border-gray-100 flex items-center justify-center text-gray-400 hover:border-brand-orange hover:text-brand-orange transition-colors duration-300" id="sbcl" aria-label="Close details">Ã¢Å“â€¢</button>
+      
+      <!-- Icon Container -->
+      <div class="w-16 h-16 bg-brand-orange border border-brand-orange/10 flex items-center justify-center mb-6 shadow-[0_8px_30px_-5px_rgba(255,74,28,0.15)]">
+        <img src="" alt="" id="sbimg" class="w-9 h-9 object-contain brightness-0 invert">
+      </div>
+      
+      <!-- Title & Tags -->
+      <h3 class="text-2xl font-bold text-brand-carbon tracking-tight mb-2" id="sbti">Module</h3>
+      <span class="text-[9px] font-mono text-brand-orange uppercase tracking-widest bg-brand-orange/5 border border-brand-orange/10 px-2 py-0.5 w-fit inline-block font-semibold" id="sbtg">tag</span>
+    </div>
+
+    <!-- Body -->
+    <div class="p-8 flex-1 flex flex-col justify-between">
+      <div>
+        <p class="text-gray-500 text-sm leading-relaxed mb-8" id="sbds">Module description...</p>
+        
+        <!-- Features List -->
+        <h4 class="text-xs font-mono text-brand-carbon uppercase tracking-wider font-semibold mb-4" data-i18n="sb-capabilities">Key Capabilities</h4>
+        <ul class="flex flex-col gap-3 mb-8" id="sbfl">
+          <!-- Populated by JS -->
+        </ul>
+      </div>
+
+      <!-- Business Value Box -->
+      <div class="bg-brand-orange/[0.015] border border-brand-orange/10 p-6 mb-8">
+        <div class="text-[9px] font-mono uppercase tracking-wider text-brand-orange font-bold mb-2" data-i18n="sb-value-label">Business Value</div>
+        <p class="text-brand-carbon text-sm leading-relaxed" id="sbvlt">Value statement...</p>
+      </div>
+
+      <!-- CTA Button -->
+      <a href="#contact" id="sbcta" class="w-full bg-brand-orange hover:bg-[#FF5A2F] text-white py-4 font-semibold tracking-wide transition-all shadow-[0_0_30px_rgba(255,74,28,0.15)] flex items-center justify-center gap-2">
+        <span data-i18n="sb-cta">IMPLEMENT THIS MODULE</span>
+        <svg class="w-4 h-4 arrow-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+      </a>
+    </div>
+  </aside>
+
+  <!-- WHY CODDY MASTER SECTION (Luxury Light UI - Clean 3-Column Grid) -->
+  <section id="about" class="relative z-10 pt-32 pb-32 bg-[#F8F9FA] overflow-hidden border-t border-gray-100">
+    
+    <!-- Fine technical grid background (Blueprint ledger lines) -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="w-full h-full bg-[linear-gradient(to_right,#E2E8F0_1px,transparent_1px),linear-gradient(to_bottom,#E2E8F0_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-[0.22]"></div>
+    </div>
+
+    <!-- Soft Orange Glow Accent -->
+    <div class="absolute top-1/2 left-1/4 w-[500px] h-[500px] bg-brand-orange/[0.015] rounded-none blur-[120px] pointer-events-none"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-brand-orange/[0.01] rounded-none blur-[120px] pointer-events-none"></div>
+
+    <!-- Soft Noise Texture Overlay -->
+    <div class="absolute inset-0 opacity-[0.01] pointer-events-none mix-blend-overlay bg-noise"></div>
+
+    <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+      
+      
+      <!-- Section Header (Targeted by GSAP) -->
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-20 why-header opacity-0">
+        <div class="max-w-2xl">
+          <span class="text-brand-orange font-mono text-xs uppercase tracking-widest mb-3 font-semibold inline-block" data-i18n="why-badge">
+            Why Coddy Master
+          </span>
+          <h2 class="text-3xl md:text-5xl font-fancy font-bold tracking-tight text-brand-carbon mt-2 leading-[1.1]" data-i18n="why-title">
+            Operational mastery engineered by experts.
+          </h2>
+        </div>
+        <div class="max-w-md">
+          <p class="text-gray-500 text-sm md:text-base leading-relaxed" data-i18n="why-desc">
+            We unite elite financial strategy with certified Odoo ERP architectures to eliminate company fragmentation and build scalable futures.
+          </p>
+        </div>
+      </div>
+
+      <!-- Features Symmetrical 3-Column Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        
+        <!-- Card 1: Official Odoo Partner -->
+        <div class="why-card group relative bg-white border border-gray-100 p-8 md:p-10 flex flex-col justify-between shadow-[0_15px_40px_-20px_rgba(0,0,0,0.03)] hover:shadow-[0_25px_60px_-15px_rgba(255,74,28,0.05)] hover:border-brand-orange/20 transition-shadow transition-colors duration-500 group relative overflow-hidden opacity-0">
+          <div class="absolute -top-32 -left-32 w-64 h-64 bg-brand-orange/[0.02] rounded-none blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          <div>
+            <div class="w-12 h-12 bg-brand-gray border border-gray-100 flex items-center justify-center mb-8 group-hover:bg-brand-orange group-hover:border-brand-orange transition-colors duration-300">
+              <svg class="w-6 h-6 text-brand-carbon group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-brand-carbon mb-4 group-hover:text-brand-orange transition-colors duration-300">Official Odoo Partner</h3>
+            <p class="text-gray-500 text-sm leading-relaxed">Certified systems integrations aligned with Odoo's official framework, ensuring full technical compliance and direct provider support.</p>
+          </div>
+        </div>
+
+        <!-- Card 2: Business-First Approach -->
+        <div class="why-card group relative bg-white border border-gray-100 p-8 md:p-10 flex flex-col justify-between shadow-[0_15px_40px_-20px_rgba(0,0,0,0.03)] hover:shadow-[0_25px_60px_-15px_rgba(255,74,28,0.05)] hover:border-brand-orange/20 transition-shadow transition-colors duration-500 group relative overflow-hidden opacity-0">
+          <div class="absolute -top-32 -left-32 w-64 h-64 bg-brand-orange/[0.02] rounded-none blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          <div>
+            <div class="w-12 h-12 bg-brand-gray border border-gray-100 flex items-center justify-center mb-8 group-hover:bg-brand-orange group-hover:border-brand-orange transition-colors duration-300">
+              <svg class="w-6 h-6 text-brand-carbon group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-brand-carbon mb-4 group-hover:text-brand-orange transition-colors duration-300">Business-First Approach</h3>
+            <p class="text-gray-500 text-sm leading-relaxed">We analyze your physical workflows and business logics first, tailoring Odoo to elevate your performance rather than forcing you to adjust to the code.</p>
+          </div>
+        </div>
+
+        <!-- Card 3: Fast Implementation -->
+        <div class="why-card group relative bg-white border border-gray-100 p-8 md:p-10 flex flex-col justify-between shadow-[0_15px_40px_-20px_rgba(0,0,0,0.03)] hover:shadow-[0_25px_60px_-15px_rgba(255,74,28,0.05)] hover:border-brand-orange/20 transition-shadow transition-colors duration-500 group relative overflow-hidden opacity-0">
+          <div class="absolute -top-32 -left-32 w-64 h-64 bg-brand-orange/[0.02] rounded-none blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          <div>
+            <div class="w-12 h-12 bg-brand-gray border border-gray-100 flex items-center justify-center mb-8 group-hover:bg-brand-orange group-hover:border-brand-orange transition-colors duration-300">
+              <svg class="w-6 h-6 text-brand-carbon group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-brand-carbon mb-4 group-hover:text-brand-orange transition-colors duration-300">Fast Implementation</h3>
+            <p class="text-gray-500 text-sm leading-relaxed">Incremental agile sprint methodologies that roll out functional ERP modules rapidly, delivering return on investment in weeks, not quarters.</p>
+          </div>
+        </div>
+
+        <!-- Card 4: Financial Expertise -->
+        <div class="why-card group relative bg-white border border-gray-100 p-8 md:p-10 flex flex-col justify-between shadow-[0_15px_40px_-20px_rgba(0,0,0,0.03)] hover:shadow-[0_25px_60px_-15px_rgba(255,74,28,0.05)] hover:border-brand-orange/20 transition-shadow transition-colors duration-500 group relative overflow-hidden opacity-0">
+          <div class="absolute -top-32 -left-32 w-64 h-64 bg-brand-orange/[0.02] rounded-none blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          <div>
+            <div class="w-12 h-12 bg-brand-gray border border-gray-100 flex items-center justify-center mb-8 group-hover:bg-brand-orange group-hover:border-brand-orange transition-colors duration-300">
+              <svg class="w-6 h-6 text-brand-carbon group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-brand-carbon mb-4 group-hover:text-brand-orange transition-colors duration-300">Financial Expertise</h3>
+            <p class="text-gray-500 text-sm leading-relaxed">Founded by financial directors and CPAs. Your charts of accounts, ledgers, tax systems, and VAT compliance rules are configured with absolute accuracy.</p>
+          </div>
+        </div>
+
+        <!-- Card 5: Dedicated Support -->
+        <div class="why-card group relative bg-white border border-gray-100 p-8 md:p-10 flex flex-col justify-between shadow-[0_15px_40px_-20px_rgba(0,0,0,0.03)] hover:shadow-[0_25px_60px_-15px_rgba(255,74,28,0.06)] hover:border-brand-orange/20 transition-shadow transition-colors duration-500 group relative overflow-hidden opacity-0">
+          <div class="absolute -top-32 -left-32 w-64 h-64 bg-brand-orange/[0.02] rounded-none blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          <div>
+            <div class="w-12 h-12 bg-brand-gray border border-gray-100 flex items-center justify-center mb-8 group-hover:bg-brand-orange group-hover:border-brand-orange transition-colors duration-300">
+              <svg class="w-6 h-6 text-brand-carbon group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-brand-carbon mb-4 group-hover:text-brand-orange transition-colors duration-300">Dedicated Support</h3>
+            <p class="text-gray-500 text-sm leading-relaxed">A highly responsive helpdesk offering constant technical advisory, functional upgrades, and ongoing team training to sustain operational momentum.</p>
+          </div>
+        </div>
+
+        <!-- Card 6: Scalable Systems -->
+        <div class="why-card group relative bg-white border border-gray-100 p-8 md:p-10 flex flex-col justify-between shadow-[0_15px_40px_-20px_rgba(0,0,0,0.03)] hover:shadow-[0_25px_60px_-15px_rgba(255,74,28,0.05)] hover:border-brand-orange/20 transition-shadow transition-colors duration-500 group relative overflow-hidden opacity-0">
+          <div class="absolute -top-32 -left-32 w-64 h-64 bg-brand-orange/[0.02] rounded-none blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          <div>
+            <div class="w-12 h-12 bg-brand-gray border border-gray-100 flex items-center justify-center mb-8 group-hover:bg-brand-orange group-hover:border-brand-orange transition-colors duration-300">
+              <svg class="w-6 h-6 text-brand-carbon group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-brand-carbon mb-4 group-hover:text-brand-orange transition-colors duration-300">Scalable Systems</h3>
+            <p class="text-gray-500 text-sm leading-relaxed">Enterprise-grade architectures configured natively to support multi-company, multi-currency, and multi-warehouse operations across the GCC.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS / WORKFLOW SECTION (Luxury Light UI - Symmetrical Timeline Grid) -->
+  
+
+  <!-- JOBS / CAREERS SECTION (Premium Dark UI - Bento Grid) -->
+  
+  <!-- ENTERPRISE ROI & IMPACT -->
+  <section id="impact" class="relative z-10 pt-40 pb-40 bg-white overflow-hidden border-t border-gray-100">
+    <div class="absolute inset-0 w-full h-full pointer-events-none opacity-[0.01] bg-noise"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-brand-orange/[0.015] blur-[120px] pointer-events-none rounded-full"></div>
+    
+    <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8">
+        
+        <div class="flex flex-col items-start border-l border-gray-200 pl-8">
+          <div class="text-brand-orange font-mono text-6xl md:text-7xl font-bold mb-6 tracking-tight">80%</div>
+          <h4 class="text-brand-carbon font-fancy font-bold text-xl mb-2">Faster Closings</h4>
+          <p class="text-gray-500 text-sm leading-relaxed">Automated bank sync and smart reconciliation reduce monthly financial close times by up to 80%.</p>
+        </div>
+
+        <div class="flex flex-col items-start border-l border-gray-200 pl-8">
+          <div class="text-brand-orange font-mono text-6xl md:text-7xl font-bold mb-6 tracking-tight">100%</div>
+          <h4 class="text-brand-carbon font-fancy font-bold text-xl mb-2">ETA Compliance</h4>
+          <p class="text-gray-500 text-sm leading-relaxed">Direct API integration with the Egyptian Tax Authority guarantees flawless, zero-error e-invoicing.</p>
+        </div>
+
+        <div class="flex flex-col items-start border-l border-gray-200 pl-8">
+          <div class="text-brand-orange font-mono text-6xl md:text-7xl font-bold mb-6 tracking-tight">360&deg;</div>
+          <h4 class="text-brand-carbon font-fancy font-bold text-xl mb-2">Unified Control</h4>
+          <p class="text-gray-500 text-sm leading-relaxed">Total operational visibility from inventory traceability to multi-company P&L statements.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- LEADERSHIP & ADVISORY (SPLIT-SCREEN) -->
+  <section id="leadership" class="relative z-10 bg-white overflow-hidden flex flex-col lg:flex-row">
+    <!-- Text Column (Left) -->
+    <div class="w-full lg:w-[45%] py-32 px-6 md:px-16 lg:px-24 flex flex-col justify-center">
+        <span class="text-brand-orange font-mono text-xs uppercase tracking-widest mb-6 font-semibold block" data-i18n="leadership-badge">Leadership & Advisory</span>
+      <h2 class="text-5xl md:text-6xl font-fancy font-bold tracking-tight text-brand-carbon mb-8 leading-[1.05]" data-i18n="leadership-title">Virtual CFOs.<br>Real Growth.</h2>
+      <p class="text-gray-500 text-sm leading-relaxed mb-6" data-i18n="leadership-p1">
+        We don't just deploy software; we architect financial resilience. Our elite team of Certified Public Accountants and Senior Odoo Consultants work directly with your C-suite to translate raw data into actionable enterprise strategy.
+      </p>
+      <p class="text-gray-500 text-sm leading-relaxed mb-12" data-i18n="leadership-p2">
+        From pre-implementation discovery to post-go-live financial governance, Coddy Master ensures your operations are scalable, secure, and infinitely profitable.
+      </p>
+      <a href="#contact" class="inline-flex items-center gap-4 text-brand-carbon hover:text-brand-orange text-sm font-bold tracking-wider uppercase group transition-colors">
+        <span class="border-b border-brand-carbon group-hover:border-brand-orange pb-1 transition-colors" data-i18n="leadership-cta">Schedule Consultation</span>
+        <svg class="w-5 h-5 arrow-icon transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+      </a>
+    </div>
+
+    <!-- Image Column (Right) -->
+    <div class="w-full lg:w-[55%] min-h-[500px] lg:min-h-full relative">
+      <img src="assets/leadership-exec.jpg" alt="Coddy Master Leadership" class="absolute inset-0 w-full h-full object-cover">
+      <div class="absolute inset-0 bg-gradient-to-r from-white via-transparent to-transparent opacity-50 hidden lg:block"></div>
+    </div>
+  </section>
+
+  <!-- TEAM GRID (Premium Light UI) -->
+  <section id="team" class="relative z-10 pt-32 pb-32 bg-white overflow-hidden border-t border-gray-100">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-20 team-header scroll-reveal">
+        <div class="max-w-2xl">
+          <span class="text-brand-orange font-mono text-xs uppercase tracking-widest mb-3 font-semibold inline-block" data-i18n="team-badge">Our Experts</span>
+          <h2 class="text-3xl md:text-5xl font-fancy font-bold tracking-tight text-brand-carbon mt-2 leading-[1.1]" data-i18n="team-title">Meet Our Leadership & Advisory</h2>
+        </div>
+        <p class="text-gray-500 text-sm md:text-base max-w-md leading-relaxed" data-i18n="team-subtitle">
+          Senior accountants, certified consultants, and ERP architects working together to drive operational resilience.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+        <!-- Team Member 2 (Mohamed Refaat) -->
+        <div class="team-card group relative bg-[#F5F7FA] border border-gray-200/50 p-6 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-all duration-300 scroll-reveal">
+          <div class="w-32 h-32 rounded-full overflow-hidden mb-6 border-2 border-brand-orange/20 group-hover:border-brand-orange transition-colors">
+            <img src="assets/Team/mr-mohamed.jfif" alt="Mohamed Refaat" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-lg font-bold text-brand-carbon mb-1" data-i18n="team-m2-name">Mohamed Refaat</h3>
+          <p class="text-brand-orange font-mono text-[10px] uppercase tracking-wider mb-3" data-i18n="team-m2-role">Co-founder & Operation manager</p>
+          <p class="text-gray-500 text-xs leading-relaxed" data-i18n="team-m2-desc">Expert in optimizing operations, workflow automation, and managing client services.</p>
+        </div>
+        <!-- Team Member 1 (Ahmed Zehery) -->
+        <div class="team-card group relative bg-[#F5F7FA] border border-gray-200/50 p-6 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-all duration-300 scroll-reveal">
+          <div class="w-32 h-32 rounded-full overflow-hidden mb-6 border-2 border-brand-orange/20 group-hover:border-brand-orange transition-colors">
+            <img src="assets/Team/mr-ahmed.jpg" alt="Ahmed Zehery" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-lg font-bold text-brand-carbon mb-1" data-i18n="team-m1-name">Ahmed Zehery</h3>
+          <p class="text-brand-orange font-mono text-[10px] uppercase tracking-wider mb-3" data-i18n="team-m1-role">Co-founder & Marketing and sales manager</p>
+          <p class="text-gray-500 text-xs leading-relaxed" data-i18n="team-m1-desc">Specialized in marketing strategies, customer acquisition, and enterprise sales growth.</p>
+        </div>
+        <!-- Team Member 6 (Ramy Khoukh) -->
+        <div class="team-card group relative bg-[#F5F7FA] border border-gray-200/50 p-6 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-all duration-300 scroll-reveal">
+          <div class="w-32 h-32 rounded-full overflow-hidden mb-6 border-2 border-brand-orange/20 group-hover:border-brand-orange transition-colors">
+            <img src="assets/Team/mr-ramy.png" alt="Ramy Khoukh" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-lg font-bold text-brand-carbon mb-1" data-i18n="team-m6-name">Ramy Khoukh</h3>
+          <p class="text-brand-orange font-mono text-[10px] uppercase tracking-wider mb-3" data-i18n="team-m6-role">Legal accountant</p>
+          <p class="text-gray-500 text-xs leading-relaxed" data-i18n="team-m6-desc">Expert in tax compliance, auditing, and corporate financial legislation.</p>
+        </div>
+        <!-- Team Member 5 (Eyad Elsheha) -->
+        <div class="team-card group relative bg-[#F5F7FA] border border-gray-200/50 p-6 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-all duration-300 scroll-reveal">
+          <div class="w-32 h-32 rounded-full overflow-hidden mb-6 border-2 border-brand-orange/20 group-hover:border-brand-orange transition-colors">
+            <img src="assets/Team/eyad.jpg" alt="Eyad Elsheha" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-lg font-bold text-brand-carbon mb-1" data-i18n="team-m5-name">Eyad Elsheha</h3>
+          <p class="text-brand-orange font-mono text-[10px] uppercase tracking-wider mb-3" data-i18n="team-m5-role">Sales</p>
+          <p class="text-gray-500 text-xs leading-relaxed" data-i18n="team-m5-desc">Focused on driving growth and connecting with enterprise partners.</p>
+        </div>
+        <!-- Team Member 3 (Hazem Refaat) -->
+        <div class="team-card group relative bg-[#F5F7FA] border border-gray-200/50 p-6 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-all duration-300 scroll-reveal">
+          <div class="w-32 h-32 rounded-full overflow-hidden mb-6 border-2 border-brand-orange/20 group-hover:border-brand-orange transition-colors">
+            <img src="assets/Team/hazem.jpg" alt="Ali Sami" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-lg font-bold text-brand-carbon mb-1" data-i18n="team-m3-name">Hazem Refaat</h3>
+          <p class="text-brand-orange font-mono text-[10px] uppercase tracking-wider mb-3" data-i18n="team-m3-role">Odoo Implementer</p>
+          <p class="text-gray-500 text-xs leading-relaxed" data-i18n="team-m3-desc">specialized software engineer who builds and customizes applications within the Odoo enterprise resource planning (ERP) platform.</p>
+        </div>
+        <!-- Team Member 4 (Sohaila Shaalan) -->
+        <div class="team-card group relative bg-[#F5F7FA] border border-gray-200/50 p-6 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-all duration-300 scroll-reveal">
+          <div class="w-32 h-32 rounded-full overflow-hidden mb-6 border-2 border-brand-orange/20 group-hover:border-brand-orange transition-colors">
+            <img src="assets/Team/sohaila.jpg" alt="Sohaila" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-lg font-bold text-brand-carbon mb-1" data-i18n="team-m4-name">Sohaila Shaalan</h3>
+          <p class="text-brand-orange font-mono text-[10px] uppercase tracking-wider mb-3" data-i18n="team-m4-role">Odoo Implementer</p>
+          <p class="text-gray-500 text-xs leading-relaxed" data-i18n="team-m4-desc">Experienced in Odoo module integration, testing, and business workflow setup.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="careers" class="relative z-10 pt-32 pb-32 bg-[#F5F7FA] overflow-hidden">
+
+    <!-- Smooth Light-to-Dark Gradient Fade (Top Edge Transition) -->
+    <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-white via-white/50 to-transparent z-20 pointer-events-none"></div>
+    
+    <!-- Fine technical grid background (Blueprint ledger lines) -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="w-full h-full bg-[linear-gradient(to_right,rgba(13,17,23,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(13,17,23,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
+    </div>
+
+    <!-- Ambient Glow Accents -->
+    <div class="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-brand-orange/[0.015] rounded-none blur-[140px] pointer-events-none"></div>
+    <div class="absolute bottom-1/4 right-1/3 w-[400px] h-[400px] bg-brand-orange/[0.01] rounded-none blur-[120px] pointer-events-none"></div>
+
+    <!-- Soft Noise Texture Overlay -->
+    <div class="absolute inset-0 opacity-[0.01] pointer-events-none mix-blend-overlay bg-noise"></div>
+
+    <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-20 careers-header scroll-reveal">
+        <div class="max-w-2xl">
+          <span class="text-brand-orange font-mono text-xs uppercase tracking-widest mb-3 font-semibold inline-block" data-i18n="careers-badge">
+            Join the Team
+          </span>
+          <h2 class="text-3xl md:text-5xl font-fancy font-bold tracking-tight text-brand-carbon mt-2 leading-[1.1]" data-i18n="careers-title">
+            Build the future of enterprise intelligence.
+          </h2>
+        </div>
+        <div class="max-w-md">
+          <p class="text-gray-500 text-sm md:text-base leading-relaxed" data-i18n="careers-desc">
+            We're assembling an elite team of technologists, consultants, and strategists to reshape how GCC companies scale. If you're exceptional, we want to hear from you.
+          </p>
+          <!-- Mini Stats -->
+          <div class="flex items-center gap-6 mt-6">
+            <div>
+              <div class="text-brand-orange font-mono text-2xl font-bold">40+</div>
+              <div class="text-gray-500 font-mono text-[9px] uppercase tracking-wider" data-i18n="careers-stat1">Team Members</div>
+            </div>
+            <div class="w-[1px] h-8 bg-gray-200"></div>
+            <div>
+              <div class="text-brand-orange font-mono text-2xl font-bold">4</div>
+              <div class="text-gray-500 font-mono text-[9px] uppercase tracking-wider" data-i18n="careers-stat2">Countries</div>
+            </div>
+            <div class="w-[1px] h-8 bg-gray-200"></div>
+            <div>
+              <div class="text-brand-orange font-mono text-2xl font-bold">100%</div>
+              <div class="text-gray-500 font-mono text-[9px] uppercase tracking-wider" data-i18n="careers-stat3">Growth Mode</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bento Grid Ã¢â‚¬â€œ Job Cards -->
+      <div id="careers-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+        
+        <!-- Job Card 1: Full Stack .NET Developer -->
+        <div class="career-card group relative bg-white border border-gray-200/80 p-8 flex flex-col justify-between hover:border-brand-orange/30 transition-all duration-500 cursor-pointer scroll-reveal shadow-sm hover:shadow-md" id="job-card-1">
+          <!-- Hover Glow -->
+          <div class="absolute -top-24 -left-24 w-48 h-48 bg-brand-orange/[0.02] rounded-none blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          
+          <div class="relative z-10">
+            <!-- Department & Type Badges -->
+            <div class="flex items-center gap-3 mb-6">
+              <span class="text-[9px] font-mono bg-brand-orange/10 text-brand-orange px-2.5 py-1 font-bold uppercase tracking-wider border border-brand-orange/15">Tech</span>
+              <span class="text-[9px] font-mono bg-gray-100 text-gray-600 px-2.5 py-1 font-semibold uppercase tracking-wider border border-gray-200/50">Full-time</span>
+            </div>
+            
+            <!-- Job Title -->
+            <h3 class="text-xl font-bold text-brand-carbon tracking-tight mb-3 group-hover:text-brand-orange transition-colors duration-300">.NET Full Stack Developer</h3>
+            
+            <!-- Description -->
+            <p class="text-gray-500 text-sm leading-relaxed mb-6">
+              Build enterprise-grade web applications using .NET Core, Blazor, and SQL Server. Design microservices architectures and RESTful APIs for GCC clients.
+            </p>
+            
+            <!-- Skill Tags -->
+            <div class="flex flex-wrap gap-2 mb-8">
+              <span class="text-[10px] font-mono text-gray-500 bg-gray-50 px-2 py-0.5 border border-gray-200/80">.NET Core</span>
+              <span class="text-[10px] font-mono text-gray-500 bg-gray-50 px-2 py-0.5 border border-gray-200/80">Blazor</span>
+              <span class="text-[10px] font-mono text-gray-500 bg-gray-50 px-2 py-0.5 border border-gray-200/80">SQL Server</span>
+              <span class="text-[10px] font-mono text-gray-500 bg-gray-50 px-2 py-0.5 border border-gray-200/80">Azure</span>
+            </div>
+          </div>
+          
+          <!-- Apply CTA -->
+          <div class="pt-6 border-t border-gray-100 flex justify-between items-center relative z-10">
+            <a href="mailto:careers@coddymaster.com?subject=Application: .NET Full Stack Developer" class="career-apply-btn inline-flex items-center gap-2 text-gray-500 group-hover:text-brand-orange text-xs font-semibold tracking-wider transition-colors duration-300">
+              <span>APPLY NOW</span>
+              <svg class="w-4 h-4 arrow-icon transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+            </a>
+            <span class="text-gray-400 font-mono text-[10px]">New Damietta Ã‚Â· Remote</span>
+          </div>
+        </div>
+
+        <!-- Job Card 2: Odoo Functional Consultant -->
+        <div class="career-card group relative bg-white border border-gray-200/80 p-8 flex flex-col justify-between hover:border-brand-orange/30 transition-all duration-500 cursor-pointer scroll-reveal shadow-sm hover:shadow-md" id="job-card-2">
+          <div class="absolute -top-24 -left-24 w-48 h-48 bg-brand-orange/[0.02] rounded-none blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          
+          <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-6">
+              <span class="text-[9px] font-mono bg-brand-orange/10 text-brand-orange px-2.5 py-1 font-bold uppercase tracking-wider border border-brand-orange/15">Consulting</span>
+              <span class="text-[9px] font-mono bg-gray-100 text-gray-600 px-2.5 py-1 font-semibold uppercase tracking-wider border border-gray-200/50">Full-time</span>
+            </div>
+            
+            <h3 class="text-xl font-bold text-brand-carbon tracking-tight mb-3 group-hover:text-brand-orange transition-colors duration-300">Odoo Functional Consultant</h3>
+            
+            <p class="text-gray-500 text-sm leading-relaxed mb-6">
+              Lead client workshops, map business processes to Odoo modules, configure accounting flows, and deliver end-to-end implementations for enterprise clients.
+            </p>
+            
+            <div class="flex flex-wrap gap-2 mb-8">
+              <span class="text-[10px] font-mono text-gray-500 bg-gray-50 px-2 py-0.5 border border-gray-200/80">Odoo 17</span>
+              <span class="text-[10px] font-mono text-gray-500 bg-gray-50 px-2 py-0.5 border border-gray-200/80">ERP</span>
+              <span class="text-[10px] font-mono text-gray-500 bg-gray-50 px-2 py-0.5 border border-gray-200/80">Accounting</span>
+              <span class="text-[10px] font-mono text-gray-500 bg-gray-50 px-2 py-0.5 border border-gray-200/80">Workshops</span>
+            </div>
+          </div>
+          
+          <div class="pt-6 border-t border-gray-100 flex justify-between items-center relative z-10">
+            <a href="mailto:careers@coddymaster.com?subject=Application: Odoo Functional Consultant" class="career-apply-btn inline-flex items-center gap-2 text-gray-500 group-hover:text-brand-orange text-xs font-semibold tracking-wider transition-colors duration-300">
+              <span>APPLY NOW</span>
+              <svg class="w-4 h-4 arrow-icon transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+            </a>
+            <span class="text-gray-400 font-mono text-[10px]">New Damietta Ã‚Â· Hybrid</span>
+          </div>
+        </div>
+
+        <!-- Job Card 3: UI/UX Designer -->
+        <div class="career-card group relative bg-white border border-gray-200/80 p-8 flex flex-col justify-between hover:border-brand-orange/30 transition-all duration-500 cursor-pointer scroll-reveal shadow-sm hover:shadow-md" id="job-card-3">
+          <div class="absolute -top-24 -left-24 w-48 h-48 bg-brand-orange/[0.02] rounded-none blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          
+          <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-6">
+              <span class="text-[9px] font-mono bg-brand-orange/10 text-brand-orange px-2.5 py-1 font-bold uppercase tracking-wider border border-brand-orange/15">Design</span>
+              <span class="text-[9px] font-mono bg-gray-100 text-gray-600 px-2.5 py-1 font-semibold uppercase tracking-wider border border-gray-200/50">Remote</span>
+            </div>
+            
+            <h3 class="text-xl font-bold text-brand-carbon tracking-tight mb-3 group-hover:text-brand-orange transition-colors duration-300">Senior UI/UX Designer</h3>
+            
+            <p class="text-gray-500 text-sm leading-relaxed mb-6">
+              Craft premium digital experiences, design systems, and ERP dashboard interfaces. Translate complex data workflows into intuitive, elegant user journeys.
+            </p>
+            
+            <div class="flex flex-wrap gap-2 mb-8">
+              <span class="text-[10px] font-mono text-gray-500 bg-gray-50 px-2 py-0.5 border border-gray-200/80">Figma</span>
+              <span class="text-[10px] font-mono text-gray-500 bg-gray-50 px-2 py-0.5 border border-gray-200/80">Design Systems</span>
+              <span class="text-[10px] font-mono text-gray-500 bg-gray-50 px-2 py-0.5 border border-gray-200/80">Prototyping</span>
+            </div>
+          </div>
+          
+          <div class="pt-6 border-t border-gray-100 flex justify-between items-center relative z-10">
+            <a href="mailto:careers@coddymaster.com?subject=Application: Senior UI/UX Designer" class="career-apply-btn inline-flex items-center gap-2 text-gray-500 group-hover:text-brand-orange text-xs font-semibold tracking-wider transition-colors duration-300">
+              <span>APPLY NOW</span>
+              <svg class="w-4 h-4 arrow-icon transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+            </a>
+            <span class="text-gray-400 font-mono text-[10px]">Remote Worldwide</span>
+          </div>
+        </div>
+
+        <!-- Job Card 4: Odoo Technical Developer -->
+        <div class="career-card mobile-hidden hidden md:flex group relative bg-white border border-gray-200/80 p-8 flex-col justify-between hover:border-brand-orange/30 transition-all duration-500 cursor-pointer scroll-reveal shadow-sm hover:shadow-md" id="job-card-4">
+          <div class="absolute -top-24 -left-24 w-48 h-48 bg-brand-orange/[0.02] rounded-none blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          
+          <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-6">
+              <span class="text-[9px] font-mono bg-brand-orange/10 text-brand-orange px-2.5 py-1 font-bold uppercase tracking-wider border border-brand-orange/15">Tech</span>
+              <span class="text-[9px] font-mono bg-gray-100 text-gray-600 px-2.5 py-1 font-semibold uppercase tracking-wider border border-gray-200/50">Full-time</span>
+            </div>
+            
+            <h3 class="text-xl font-bold text-brand-carbon tracking-tight mb-3 group-hover:text-brand-orange transition-colors duration-300">Odoo Technical Developer</h3>
+            
+            <p class="text-gray-500 text-sm leading-relaxed mb-6">
+              Develop custom Odoo modules, build advanced Python controllers, create sophisticated OWL components, and architect complex multi-company setups.
+            </p>
+            
+            <div class="flex flex-wrap gap-2 mb-8">
+              <span class="text-[10px] font-mono text-gray-500 bg-gray-50 px-2 py-0.5 border border-gray-200/80">Python</span>
+              <span class="text-[10px] font-mono text-gray-500 bg-gray-50 px-2 py-0.5 border border-gray-200/80">OWL</span>
+              <span class="text-[10px] font-mono text-gray-500 bg-gray-50 px-2 py-0.5 border border-gray-200/80">PostgreSQL</span>
+              <span class="text-[10px] font-mono text-gray-500 bg-gray-50 px-2 py-0.5 border border-gray-200/80">XML</span>
+            </div>
+          </div>
+          
+          <div class="pt-6 border-t border-gray-100 flex justify-between items-center relative z-10">
+            <a href="mailto:careers@coddymaster.com?subject=Application: Odoo Technical Developer" class="career-apply-btn inline-flex items-center gap-2 text-gray-500 group-hover:text-brand-orange text-xs font-semibold tracking-wider transition-colors duration-300">
+              <span>APPLY NOW</span>
+              <svg class="w-4 h-4 arrow-icon transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+            </a>
+            <span class="text-gray-400 font-mono text-[10px]">New Damietta Ã‚Â· On-site</span>
+          </div>
+        </div>
+
+        <!-- Job Card 5: Business Development Manager -->
+        <div class="career-card mobile-hidden hidden md:flex group relative bg-white border border-gray-200/80 p-8 flex-col justify-between hover:border-brand-orange/30 transition-all duration-500 cursor-pointer scroll-reveal shadow-sm hover:shadow-md" id="job-card-5">
+          <div class="absolute -top-24 -left-24 w-48 h-48 bg-brand-orange/[0.02] rounded-none blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          
+          <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-6">
+              <span class="text-[9px] font-mono bg-brand-orange/10 text-brand-orange px-2.5 py-1 font-bold uppercase tracking-wider border border-brand-orange/15">Sales</span>
+              <span class="text-[9px] font-mono bg-gray-100 text-gray-600 px-2.5 py-1 font-semibold uppercase tracking-wider border border-gray-200/50">Full-time</span>
+            </div>
+            
+            <h3 class="text-xl font-bold text-brand-carbon tracking-tight mb-3 group-hover:text-brand-orange transition-colors duration-300">Business Development Manager</h3>
+            
+            <p class="text-gray-500 text-sm leading-relaxed mb-6">
+              Drive strategic partnerships across the GCC. Identify enterprise leads, manage the sales pipeline, and close high-value ERP implementation deals.
+            </p>
+            
+            <div class="flex flex-wrap gap-2 mb-8">
+              <span class="text-[10px] font-mono text-gray-500 bg-gray-50 px-2 py-0.5 border border-gray-200/80">B2B Sales</span>
+              <span class="text-[10px] font-mono text-gray-500 bg-gray-50 px-2 py-0.5 border border-gray-200/80">Enterprise</span>
+              <span class="text-[10px] font-mono text-gray-500 bg-gray-50 px-2 py-0.5 border border-gray-200/80">GCC Market</span>
+            </div>
+          </div>
+          
+          <div class="pt-6 border-t border-gray-100 flex justify-between items-center relative z-10">
+            <a href="mailto:careers@coddymaster.com?subject=Application: Business Development Manager" class="career-apply-btn inline-flex items-center gap-2 text-gray-500 group-hover:text-brand-orange text-xs font-semibold tracking-wider transition-colors duration-300">
+              <span>APPLY NOW</span>
+              <svg class="w-4 h-4 arrow-icon transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+            </a>
+            <span class="text-gray-400 font-mono text-[10px]">Dubai Ã‚Â· New Damietta</span>
+          </div>
+        </div>
+
+        <!-- Job Card 6: Financial Accountant -->
+        <div class="career-card mobile-hidden hidden md:flex group relative bg-white border border-gray-200/80 p-8 flex-col justify-between hover:border-brand-orange/30 transition-all duration-500 cursor-pointer scroll-reveal shadow-sm hover:shadow-md" id="job-card-6">
+          <div class="absolute -top-24 -left-24 w-48 h-48 bg-brand-orange/[0.02] rounded-none blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          
+          <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-6">
+              <span class="text-[9px] font-mono bg-brand-orange/10 text-brand-orange px-2.5 py-1 font-bold uppercase tracking-wider border border-brand-orange/15">Finance</span>
+              <span class="text-[9px] font-mono bg-gray-100 text-gray-600 px-2.5 py-1 font-semibold uppercase tracking-wider border border-gray-200/50">Full-time</span>
+            </div>
+            
+            <h3 class="text-xl font-bold text-brand-carbon tracking-tight mb-3 group-hover:text-brand-orange transition-colors duration-300">Senior Financial Accountant</h3>
+            
+            <p class="text-gray-500 text-sm leading-relaxed mb-6">
+              Manage outsourced accounting portfolios, configure Odoo Accounting for clients, handle VAT compliance, and deliver monthly executive financial reports.
+            </p>
+            
+            <div class="flex flex-wrap gap-2 mb-8">
+              <span class="text-[10px] font-mono text-gray-500 bg-gray-50 px-2 py-0.5 border border-gray-200/80">IFRS</span>
+              <span class="text-[10px] font-mono text-gray-500 bg-gray-50 px-2 py-0.5 border border-gray-200/80">Odoo Accounting</span>
+              <span class="text-[10px] font-mono text-gray-500 bg-gray-50 px-2 py-0.5 border border-gray-200/80">VAT</span>
+              <span class="text-[10px] font-mono text-gray-500 bg-gray-50 px-2 py-0.5 border border-gray-200/80">CPA</span>
+            </div>
+          </div>
+          
+          <div class="pt-6 border-t border-gray-100 flex justify-between items-center relative z-10">
+            <a href="mailto:careers@coddymaster.com?subject=Application: Senior Financial Accountant" class="career-apply-btn inline-flex items-center gap-2 text-gray-500 group-hover:text-brand-orange text-xs font-semibold tracking-wider transition-colors duration-300">
+              <span>APPLY NOW</span>
+              <svg class="w-4 h-4 arrow-icon transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+            </a>
+            <span class="text-gray-400 font-mono text-[10px]">New Damietta Ã‚Â· On-site</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Show All Toggle for Mobile Careers Grid -->
+      <div class="flex justify-center mt-12 md:hidden">
+        <button id="toggle-careers" class="px-8 py-3.5 bg-brand-carbon hover:bg-brand-carbon/90 text-white font-semibold text-sm tracking-wide transition-all duration-300 flex items-center gap-2">
+          <span id="toggle-careers-text" data-i18n="show-all-btn">Show All Solutions</span>
+          <svg class="w-4 h-4 transform transition-transform duration-300" id="toggle-careers-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Bottom CTA Banner -->
+      <div class="mt-16 p-8 md:p-12 bg-white border border-gray-200/80 flex flex-col md:flex-row items-center justify-between gap-6 careers-cta scroll-reveal shadow-sm">
+        <div>
+          <h3 class="text-xl md:text-2xl font-bold text-brand-carbon tracking-tight mb-2" data-i18n="careers-cta-title">Don't see your role?</h3>
+          <p class="text-gray-500 text-sm leading-relaxed" data-i18n="careers-cta-desc">We're always looking for exceptional talent. Send us your CV and tell us how you'd like to contribute.</p>
+        </div>
+        <a href="mailto:careers@coddymaster.com?subject=Open Application" class="shrink-0 px-8 py-4 bg-brand-orange hover:bg-[#FF5A2F] text-white font-semibold text-sm tracking-wide transition-all duration-300 shadow-[0_0_30px_rgba(255,74,28,0.15)] hover:shadow-[0_0_40px_rgba(255,74,28,0.25)] flex items-center gap-2">
+          <span data-i18n="careers-cta-btn">Send Open Application</span>
+          <svg class="w-4 h-4 arrow-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+        </a>
+      </div>
+
+    </div>
+    <!-- Smooth Dark-to-Light Gradient Fade (Bottom Edge Transition) -->
+    <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#F8F9FA] via-[#F8F9FA]/50 to-transparent z-20 pointer-events-none"></div>
+  </section>
+
+  <!-- EVENTS & ATTENDANCE SECTION (Premium Light UI) -->
+  <section id="events" class="relative z-10 pt-32 pb-32 bg-[#F5F7FA] overflow-hidden border-t border-gray-200/80">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-20 events-header scroll-reveal">
+        <div class="max-w-2xl">
+          <span class="text-brand-orange font-mono text-xs uppercase tracking-widest mb-3 font-semibold inline-block" data-i18n="events-badge">Summit & Events</span>
+          <h2 class="text-3xl md:text-5xl font-fancy font-bold tracking-tight text-brand-carbon mt-2 leading-[1.1]" data-i18n="events-title">Upcoming Corporate Events</h2>
+        </div>
+        <p class="text-gray-500 text-sm md:text-base max-w-md leading-relaxed" data-i18n="events-subtitle">
+          Connect with our consultants live, explore case studies, and attend our interactive workshops.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Event 1 -->
+        <div class="event-card bg-white border border-gray-200/80 p-8 flex flex-col md:flex-row gap-6 shadow-sm hover:shadow-md transition-shadow duration-300 scroll-reveal">
+          <div class="w-full md:w-32 h-32 bg-brand-orange/10 flex flex-col items-center justify-center border border-brand-orange/20 shrink-0">
+            <div class="text-brand-orange font-bold text-3xl">15</div>
+            <div class="text-brand-carbon font-mono text-xs uppercase tracking-widest" data-i18n="event1-date">Oct 2026</div>
+          </div>
+          <div>
+            <span class="text-[9px] font-mono bg-brand-orange/10 text-brand-orange px-2.5 py-1 font-bold uppercase tracking-wider border border-brand-orange/15 inline-block mb-3" data-i18n="event1-badge">Live Summit</span>
+            <h3 class="text-xl font-bold text-brand-carbon mb-2" data-i18n="event1-title">New Damietta Odoo Summit 2026</h3>
+            <p class="text-gray-500 text-sm leading-relaxed mb-4" data-i18n="event1-desc">Join our architects as we demonstrate Egypt ETA e-invoicing live integration on Odoo 19.</p>
+            <a href="#contact" class="text-brand-orange hover:text-[#FF5A2F] text-xs font-bold tracking-wider uppercase inline-flex items-center gap-1">
+              <span data-i18n="events-cta">Book Seat</span> Ã¢â€ â€™
+            </a>
+          </div>
+        </div>
+        <!-- Event 2 -->
+        <div class="event-card bg-white border border-gray-200/80 p-8 flex flex-col md:flex-row gap-6 shadow-sm hover:shadow-md transition-shadow duration-300 scroll-reveal">
+          <div class="w-full md:w-32 h-32 bg-brand-orange/10 flex flex-col items-center justify-center border border-brand-orange/20 shrink-0">
+            <div class="text-brand-orange font-bold text-3xl">02</div>
+            <div class="text-brand-carbon font-mono text-xs uppercase tracking-widest" data-i18n="event2-date">Nov 2026</div>
+          </div>
+          <div>
+            <span class="text-[9px] font-mono bg-gray-100 text-gray-600 px-2.5 py-1 font-bold uppercase tracking-wider border border-gray-200/50 inline-block mb-3" data-i18n="event2-badge">Workshop</span>
+            <h3 class="text-xl font-bold text-brand-carbon mb-2" data-i18n="event2-title">ZATCA Phase 2 Advisory Day</h3>
+            <p class="text-gray-500 text-sm leading-relaxed mb-4" data-i18n="event2-desc">Exclusive advisory day for CFOs and directors regarding ZATCA Phase 2 compliance rules in Saudi Arabia.</p>
+            <a href="#contact" class="text-brand-orange hover:text-[#FF5A2F] text-xs font-bold tracking-wider uppercase inline-flex items-center gap-1">
+              <span data-i18n="events-cta">Book Seat</span> Ã¢â€ â€™
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEOS SECTION (Premium Light Ã¢â€ â€™ Dark Cinematic Cards) -->
+  <section id="videos" class="relative z-10 pt-32 pb-32 bg-white overflow-hidden">
+
+    <!-- Smooth Light-to-Dark Gradient Fade (Top Edge) -->
+    <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-[#F5F7FA] via-[#F5F7FA]/50 to-transparent z-20 pointer-events-none"></div>
+
+    <!-- Blueprint Grid -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="w-full h-full bg-[linear-gradient(to_right,rgba(13,17,23,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(13,17,23,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
+    </div>
+
+    <!-- Ambient Glow -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-brand-orange/[0.015] rounded-none blur-[160px] pointer-events-none"></div>
+
+    <!-- Noise Overlay -->
+    <div class="absolute inset-0 opacity-[0.01] pointer-events-none mix-blend-overlay bg-noise"></div>
+
+    <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+
+      <!-- Section Header -->
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-20 videos-header scroll-reveal">
+        <div class="max-w-2xl">
+          <span class="text-brand-orange font-mono text-xs uppercase tracking-widest mb-3 font-semibold inline-block" data-i18n="videos-badge">
+            Watch &amp; Learn
+          </span>
+          <h2 class="text-3xl md:text-5xl font-fancy font-bold tracking-tight text-brand-carbon mt-2 leading-[1.1]" data-i18n="videos-title">
+            Latest Videos &amp; Live Sessions
+          </h2>
+        </div>
+        <div class="max-w-sm">
+          <p class="text-gray-500 text-sm md:text-base leading-relaxed" data-i18n="videos-desc">
+            Real implementation stories, live Odoo sessions, and expert insights Ã¢â‚¬â€ straight from our team and clients.
+          </p>
+        </div>
+      </div>
+
+      <!-- Video Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Video Card 1: Ahmed Tarek's Journey -->
+        <div class="video-card group relative bg-white border border-gray-200/80 shadow-sm overflow-hidden hover:shadow-md hover:border-brand-orange/30 transition-all duration-500 cursor-pointer scroll-reveal"
+             data-vid="Izdf8guwjFs"
+             id="vc-1"
+             role="button"
+             tabindex="0"
+             aria-label="Play: Ahmed Tarek's Journey with Odoo">
+          <!-- Thumbnail -->
+          <div class="aspect-video overflow-hidden relative">
+            <img
+              src="https://img.youtube.com/vi/Izdf8guwjFs/maxresdefault.jpg"
+              alt="Ahmed Tarek's Journey with Odoo"
+              class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
+              loading="lazy">
+            <!-- Dark Gradient Overlay (Only on Thumbnail) -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent group-hover:from-black/40 transition-all duration-500"></div>
+            <!-- Play Button overlayed on thumbnail -->
+            <div class="absolute inset-0 flex items-center justify-center z-10">
+              <div class="video-play-btn w-14 h-14 flex items-center justify-center transition-all duration-400">
+                <img src="assets/yticon.png" alt="Play" class="w-12 h-12 object-contain drop-shadow-[0_0_15px_rgba(255,74,28,0.5)] group-hover:scale-110 transition-all duration-400">
+              </div>
+            </div>
+          </div>
+          
+          <!-- Card Content Body -->
+          <div class="p-6 bg-white">
+            <div class="text-[9px] font-mono bg-brand-orange/10 text-brand-orange px-2.5 py-1 font-bold uppercase tracking-wider border border-brand-orange/15 inline-block mb-3">
+              Success Story
+            </div>
+            <h3 class="text-brand-carbon font-bold text-base md:text-lg tracking-tight leading-snug group-hover:text-brand-orange transition-colors duration-300">
+              Ahmed Tarek's Journey with Odoo
+            </h3>
+          </div>
+        </div>
+
+        <!-- Video Card 2: How to Succeed in Your Work -->
+        <div class="video-card group relative bg-white border border-gray-200/80 shadow-sm overflow-hidden hover:shadow-md hover:border-brand-orange/30 transition-all duration-500 cursor-pointer scroll-reveal"
+             data-vid="7Piam7Ozxyg"
+             id="vc-2"
+             role="button"
+             tabindex="0"
+             aria-label="Play: How to Succeed in Your Work">
+          <!-- Thumbnail -->
+          <div class="aspect-video overflow-hidden relative">
+            <img
+              src="https://img.youtube.com/vi/7Piam7Ozxyg/maxresdefault.jpg"
+              alt="How to Succeed in Your Work"
+              class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
+              loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent group-hover:from-black/40 transition-all duration-500"></div>
+            <div class="absolute inset-0 flex items-center justify-center z-10">
+              <div class="video-play-btn w-14 h-14 flex items-center justify-center transition-all duration-400">
+                <img src="assets/yticon.png" alt="Play" class="w-12 h-12 object-contain drop-shadow-[0_0_15px_rgba(255,74,28,0.5)] group-hover:scale-110 transition-all duration-400">
+              </div>
+            </div>
+          </div>
+          
+          <!-- Card Content Body -->
+          <div class="p-6 bg-white">
+            <div class="text-[9px] font-mono bg-brand-orange/10 text-brand-orange px-2.5 py-1 font-bold uppercase tracking-wider border border-brand-orange/15 inline-block mb-3">
+              Career Tips
+            </div>
+            <h3 class="text-brand-carbon font-bold text-base md:text-lg tracking-tight leading-snug group-hover:text-brand-orange transition-colors duration-300">
+              How to Succeed in Your Work
+            </h3>
+          </div>
+        </div>
+
+        <!-- Video Card 3: Odoo 19 Studio AI Live Session -->
+        <div class="video-card group relative bg-white border border-gray-200/80 shadow-sm overflow-hidden hover:shadow-md hover:border-brand-orange/30 transition-all duration-500 cursor-pointer scroll-reveal"
+             data-vid="r2xNRzxW7k8"
+             id="vc-3"
+             role="button"
+             tabindex="0"
+             aria-label="Play: Odoo 19 Studio AI Ã¢â‚¬â€ Live Session">
+          <!-- Thumbnail -->
+          <div class="aspect-video overflow-hidden relative">
+            <img
+              src="https://img.youtube.com/vi/r2xNRzxW7k8/maxresdefault.jpg"
+              alt="Odoo 19 Studio AI Ã¢â‚¬â€ Live Session"
+              class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
+              loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent group-hover:from-black/40 transition-all duration-500"></div>
+            <div class="absolute inset-0 flex items-center justify-center z-10">
+              <div class="video-play-btn w-14 h-14 flex items-center justify-center transition-all duration-400">
+                <img src="assets/yticon.png" alt="Play" class="w-12 h-12 object-contain drop-shadow-[0_0_15px_rgba(255,74,28,0.5)] group-hover:scale-110 transition-all duration-400">
+              </div>
+            </div>
+          </div>
+          
+          <!-- Card Content Body -->
+          <div class="p-6 bg-white">
+            <div class="text-[9px] font-mono bg-brand-orange/10 text-brand-orange px-2.5 py-1 font-bold uppercase tracking-wider border border-brand-orange/15 inline-block mb-3">
+              Live Webinar
+            </div>
+            <h3 class="text-brand-carbon font-bold text-base md:text-lg tracking-tight leading-snug group-hover:text-brand-orange transition-colors duration-300">
+              Odoo 19 Studio AI Ã¢â‚¬â€ Live Session
+            </h3>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ARTICLES / BLOG SECTION (Premium Light UI) -->
+  <section id="articles" class="relative z-10 pt-32 pb-32 bg-[#F8F9FA] overflow-hidden">
+
+    <!-- Fine technical grid background -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="w-full h-full bg-[linear-gradient(to_right,#E2E8F0_1px,transparent_1px),linear-gradient(to_bottom,#E2E8F0_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-[0.20]"></div>
+    </div>
+
+    <!-- Soft Orange Glow Accents -->
+    <div class="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-brand-orange/[0.015] rounded-none blur-[140px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 articles-header scroll-reveal">
+        <div>
+          <span class="text-brand-orange font-mono text-xs uppercase tracking-widest mb-3 font-semibold inline-block" data-i18n="articles-badge">
+            Knowledge Hub
+          </span>
+          <h2 class="text-3xl md:text-5xl font-fancy font-bold tracking-tight text-brand-carbon mt-2 leading-[1.1]" data-i18n="articles-title">
+            Latest Articles &amp; Insights
+          </h2>
+        </div>
+        <a href="#blog" class="text-sm font-semibold text-brand-orange hover:text-[#FF5A2F] flex items-center gap-2 transition-colors">
+          <span data-i18n="articles-viewall">View All</span> <svg class="w-4 h-4 arrow-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+        </a>
+      </div>
+
+      <!-- Articles Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Article 1 -->
+        <a href="#article" class="blog-card group block bg-white border border-gray-100 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_-10px_rgba(255,74,28,0.06)] hover:border-brand-orange/20 transition-all duration-500 overflow-hidden scroll-reveal">
+          <div class="aspect-[16/10] overflow-hidden relative">
+            <img src="assets/ERP-Implementation.png" alt="ERP Implementation" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy">
+            <div class="absolute inset-0 bg-brand-carbon/10 group-hover:bg-transparent transition-colors duration-500"></div>
+          </div>
+          <div class="p-8">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="text-[10px] font-mono bg-gray-100 text-gray-600 px-2 py-1 uppercase tracking-wider font-bold">ERP</span>
+              <span class="text-xs text-gray-400">May 2026 Ã¢â‚¬Â¢ 8 min read</span>
+            </div>
+            <h3 class="text-xl font-bold text-brand-carbon mb-3 leading-snug group-hover:text-brand-orange transition-colors duration-300">
+              The Complete Guide to Odoo ERP Implementation in Egypt
+            </h3>
+            <p class="text-gray-500 text-sm leading-relaxed mb-6">
+              A step-by-step breakdown of a successful Odoo deployment Ã¢â‚¬â€ from needs analysis to go-live.
+            </p>
+            <div class="text-sm font-semibold text-brand-carbon group-hover:text-brand-orange flex items-center gap-2 transition-colors">
+              Read More <svg class="w-4 h-4 arrow-icon transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- Article 2 -->
+        <a href="#article" class="blog-card group block bg-white border border-gray-100 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_-10px_rgba(255,74,28,0.06)] hover:border-brand-orange/20 transition-all duration-500 overflow-hidden scroll-reveal">
+          <div class="aspect-[16/10] overflow-hidden relative">
+            <img src="assets/VirtualCFO.png" alt="Virtual CFO" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy">
+            <div class="absolute inset-0 bg-brand-carbon/10 group-hover:bg-transparent transition-colors duration-500"></div>
+          </div>
+          <div class="p-8">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="text-[10px] font-mono bg-gray-100 text-gray-600 px-2 py-1 uppercase tracking-wider font-bold">Finance</span>
+              <span class="text-xs text-gray-400">Apr 2026 Ã¢â‚¬Â¢ 5 min read</span>
+            </div>
+            <h3 class="text-xl font-bold text-brand-carbon mb-3 leading-snug group-hover:text-brand-orange transition-colors duration-300">
+              When Does Your Business Need a Virtual CFO?
+            </h3>
+            <p class="text-gray-500 text-sm leading-relaxed mb-6">
+              Signs your business has outgrown basic bookkeeping and needs strategic financial leadership.
+            </p>
+            <div class="text-sm font-semibold text-brand-carbon group-hover:text-brand-orange flex items-center gap-2 transition-colors">
+              Read More <svg class="w-4 h-4 arrow-icon transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- Article 3 -->
+        <a href="#article" class="blog-card group block bg-white border border-gray-100 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_-10px_rgba(255,74,28,0.06)] hover:border-brand-orange/20 transition-all duration-500 overflow-hidden scroll-reveal">
+          <div class="aspect-[16/10] overflow-hidden relative">
+            <img src="assets/OutsourceAccounting.png" alt="Outsourced Accounting" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy">
+            <div class="absolute inset-0 bg-brand-carbon/10 group-hover:bg-transparent transition-colors duration-500"></div>
+          </div>
+          <div class="p-8">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="text-[10px] font-mono bg-gray-100 text-gray-600 px-2 py-1 uppercase tracking-wider font-bold">Accounting</span>
+              <span class="text-xs text-gray-400">Mar 2026 Ã¢â‚¬Â¢ 6 min read</span>
+            </div>
+            <h3 class="text-xl font-bold text-brand-carbon mb-3 leading-snug group-hover:text-brand-orange transition-colors duration-300">
+              5 Reasons Egyptian SMEs Are Outsourcing Accounting in 2026
+            </h3>
+            <p class="text-gray-500 text-sm leading-relaxed mb-6">
+              Cost savings, compliance, and access to senior talent Ã¢â‚¬â€ the outsourcing advantage is real.
+            </p>
+            <div class="text-sm font-semibold text-brand-carbon group-hover:text-brand-orange flex items-center gap-2 transition-colors">
+              Read More <svg class="w-4 h-4 arrow-icon transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT US SECTION (Premium White UI) -->
+  <section id="contact" class="relative z-10 pt-32 pb-32 bg-white overflow-hidden border-t border-gray-100">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-2xl mx-auto mb-20 contact-header opacity-0">
+        <span class="text-brand-orange font-mono text-xs uppercase tracking-widest mb-3 font-semibold inline-block" data-i18n="contact-badge">
+          Get In Touch
+        </span>
+        <h2 class="text-3xl md:text-5xl font-fancy font-bold tracking-tight text-brand-carbon mt-2 leading-[1.1]" data-i18n="contact-title">
+          Let's Transform<br/>Your Business
+        </h2>
+        <p class="text-gray-500 text-sm md:text-base leading-relaxed mt-6" data-i18n="contact-desc">
+          Ready to implement Odoo, outsource your accounting, or hire a Virtual CFO? Book a free 30-minute consultation and let's map out your roadmap.
+        </p>
+      </div>
+
+      <!-- Contact Layout (2-Column Grid) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+        
+        <!-- Left Column: Contact Details Grid -->
+        <div class="contact-details opacity-0">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            
+            <!-- Address -->
+            <div class="bg-[#F8F9FA] p-8 border border-gray-100 group hover:border-brand-orange/20 transition-colors duration-300">
+              <div class="w-12 h-12 bg-white rounded-none flex items-center justify-center shadow-[0_5px_15px_-5px_rgba(0,0,0,0.05)] mb-6 group-hover:scale-110 transition-transform duration-300">
+                <svg class="w-6 h-6 text-brand-orange" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                </svg>
+              </div>
+              <h4 class="font-bold text-brand-carbon mb-2" data-i18n="contact-loc-label">Location</h4>
+              <p class="text-gray-500 text-sm leading-relaxed" data-i18n="contact-location">New Damietta, Egypt<br>GCC & MENA Coverage</p>
+            </div>
+
+            <!-- Email -->
+            <div class="bg-[#F8F9FA] p-8 border border-gray-100 group hover:border-brand-orange/20 transition-colors duration-300">
+              <div class="w-12 h-12 bg-white rounded-none flex items-center justify-center shadow-[0_5px_15px_-5px_rgba(0,0,0,0.05)] mb-6 group-hover:scale-110 transition-transform duration-300">
+                <svg class="w-6 h-6 text-brand-orange" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                </svg>
+              </div>
+              <h4 class="font-bold text-brand-carbon mb-2" data-i18n="contact-email-label">Email</h4>
+              <a href="mailto:Info@coddymaster.com" class="text-gray-500 text-sm leading-relaxed hover:text-brand-orange transition-colors">Info@coddymaster.com</a>
+            </div>
+
+            <!-- Phone -->
+            <div class="bg-[#F8F9FA] p-8 border border-gray-100 group hover:border-brand-orange/20 transition-colors duration-300">
+              <div class="w-12 h-12 bg-white rounded-none flex items-center justify-center shadow-[0_5px_15px_-5px_rgba(0,0,0,0.05)] mb-6 group-hover:scale-110 transition-transform duration-300">
+                <svg class="w-6 h-6 text-brand-orange" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3M12 18.75h.008v.008H12v-.008Z" />
+                </svg>
+              </div>
+              <h4 class="font-bold text-brand-carbon mb-2" data-i18n="contact-phone-label">Phone</h4>
+              <a href="tel:+201005275315" class="text-gray-500 text-sm leading-relaxed block hover:text-brand-orange transition-colors">+20 100 527 5315</a>
+              <a href="tel:+201157561861" class="text-gray-500 text-sm leading-relaxed block mt-1 hover:text-brand-orange transition-colors">+20 115 756 1861</a>
+            </div>
+
+            <!-- Website -->
+            <div class="bg-[#F8F9FA] p-8 border border-gray-100 group hover:border-brand-orange/20 transition-colors duration-300">
+              <div class="w-12 h-12 bg-white rounded-none flex items-center justify-center shadow-[0_5px_15px_-5px_rgba(0,0,0,0.05)] mb-6 group-hover:scale-110 transition-transform duration-300">
+                <svg class="w-6 h-6 text-brand-orange" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-.778.099-1.533.284-2.253" />
+                </svg>
+              </div>
+              <h4 class="font-bold text-brand-carbon mb-2" data-i18n="contact-web-label">Website</h4>
+              <a href="https://www.coddymaster.com" target="_blank" rel="noopener" class="text-gray-500 text-sm leading-relaxed hover:text-brand-orange transition-colors">www.coddymaster.com</a>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Right Column: Contact Form -->
+        <div class="contact-form-container opacity-0">
+          <form id="contact-form" class="bg-white p-8 md:p-10 border border-gray-100 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] relative" novalidate>
+            <h3 class="text-2xl font-fancy font-bold text-brand-carbon mb-8" data-i18n="form-title">Send Us a Message</h3>
+            <p id="form-status" class="hidden text-sm mb-6 px-4 py-3 border" role="status" aria-live="polite"></p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2" for="form-name" data-i18n="form-name-label">Full Name</label>
+                <input type="text" id="form-name" name="name" data-i18n-placeholder="form-name-ph" placeholder="John Doe" required class="w-full bg-[#F8F9FA] border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-brand-orange focus:bg-white transition-colors">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2" for="form-email" data-i18n="form-email-label">Email</label>
+                <input type="email" id="form-email" name="email" data-i18n-placeholder="form-email-ph" placeholder="john@company.com" required class="w-full bg-[#F8F9FA] border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-brand-orange focus:bg-white transition-colors">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2" for="form-phone" data-i18n="form-phone-label">Phone</label>
+                <input type="tel" id="form-phone" name="phone" data-i18n-placeholder="form-phone-ph" placeholder="+20 100 000 0000" class="w-full bg-[#F8F9FA] border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-brand-orange focus:bg-white transition-colors ltr:text-start" dir="ltr">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2" for="form-service" data-i18n="form-service-label">Service Needed</label>
+                <select id="form-service" name="service" class="w-full bg-[#F8F9FA] border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-brand-orange focus:bg-white transition-colors appearance-none">
+                  <option value="" data-i18n="form-service-opt0">Select...</option>
+                  <option value="erp" data-i18n="form-service-opt1">ERP Implementation</option>
+                  <option value="cfo" data-i18n="form-service-opt2">Virtual CFO</option>
+                  <option value="accounting" data-i18n="form-service-opt3">Outsource Accounting</option>
+                  <option value="other" data-i18n="form-service-opt4">Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2" for="form-message" data-i18n="form-message-label">Message</label>
+              <textarea id="form-message" name="message" rows="4" data-i18n-placeholder="form-message-ph" placeholder="Tell us about your business..." required class="w-full bg-[#F8F9FA] border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-brand-orange focus:bg-white transition-colors resize-none"></textarea>
+            </div>
+
+            <button type="submit" id="form-submit" class="w-full bg-brand-orange hover:bg-[#FF5A2F] text-white font-semibold py-4 text-sm tracking-wide transition-all duration-300 shadow-[0_0_20px_rgba(255,74,28,0.2)] hover:shadow-[0_0_30px_rgba(255,74,28,0.3)] flex items-center justify-center gap-2 relative overflow-hidden group disabled:opacity-60 disabled:cursor-not-allowed">
+              <span class="relative z-10" data-i18n="form-submit">Send Message</span>
+              <svg class="w-4 h-4 arrow-icon relative z-10 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER (Premium Dark UI) -->
+  <footer id="footer" class="relative bg-brand-carbon pt-20 pb-10 border-t border-white/10 overflow-hidden">
+    
+    <!-- Ambient Glow at bottom -->
+    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-brand-orange/[0.03] rounded-full blur-[120px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+      
+      <!-- Top Grid: 4 Columns -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
+        
+        <!-- Col 1: Brand & Bio -->
+        <div class="lg:col-span-1">
+          <a href="#" class="inline-block mb-6">
+            <img src="assets/dark-logo-nobg.png" alt="Coddy Master Logo" class="max-h-10 md:max-h-12 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity">
+          </a>
+          <p class="text-white/70 text-sm leading-relaxed mb-8 pr-4" data-i18n="footer-desc">
+            Official Odoo Partner delivering ERP, Virtual CFO, and outsourced accounting to SMEs in Egypt and the Arab world.
+          </p>
+          
+          <!-- Social Media Icons -->
+          <div class="flex items-center gap-4">
+            <a href="https://www.facebook.com/CoddyMaster" target="_blank" rel="noopener" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/70 hover:bg-brand-orange hover:text-white hover:border-brand-orange transition-all duration-300" aria-label="Facebook">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/coddy.master" target="_blank" rel="noopener" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/70 hover:bg-brand-orange hover:text-white hover:border-brand-orange transition-all duration-300" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@CoddyMaster" target="_blank" rel="noopener" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/70 hover:bg-brand-orange hover:text-white hover:border-brand-orange transition-all duration-300" aria-label="YouTube">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@coddy.master" target="_blank" rel="noopener" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/70 hover:bg-brand-orange hover:text-white hover:border-brand-orange transition-all duration-300" aria-label="TikTok">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 106.34 6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/company/coddy-master" target="_blank" rel="noopener" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/70 hover:bg-brand-orange hover:text-white hover:border-brand-orange transition-all duration-300" aria-label="LinkedIn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2: Services -->
+        <div>
+          <h4 class="text-white font-bold tracking-tight mb-6 text-sm uppercase">Services</h4>
+          <ul class="space-y-4">
+            <li><a href="#services" class="text-white/70 hover:text-brand-orange text-sm transition-colors">Virtual CFO</a></li>
+            <li><a href="#services" class="text-white/70 hover:text-brand-orange text-sm transition-colors">Outsource Accounting</a></li>
+            <li><a href="#services" class="text-white/70 hover:text-brand-orange text-sm transition-colors">ERP Implementation</a></li>
+            <li><a href="#solutions" class="text-white/70 hover:text-brand-orange text-sm transition-colors">Odoo Modules</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Company -->
+        <div>
+          <h4 class="text-white font-bold tracking-tight mb-6 text-sm uppercase">Company</h4>
+          <ul class="space-y-4">
+            <li><a href="#team" class="text-white/70 hover:text-brand-orange text-sm transition-colors">Our Team</a></li>
+            <li><a href="#impact" class="text-white/70 hover:text-brand-orange text-sm transition-colors">Impact</a></li>
+            <li><a href="#articles" class="text-white/70 hover:text-brand-orange text-sm transition-colors">Blog &amp; Insights</a></li>
+            <li><a href="#videos" class="text-white/70 hover:text-brand-orange text-sm transition-colors">Videos</a></li>
+            <li><a href="#careers" class="text-white/70 hover:text-brand-orange text-sm transition-colors">Careers</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Contact -->
+        <div>
+          <h4 class="text-white font-bold tracking-tight mb-6 text-sm uppercase">Contact</h4>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <span class="text-brand-orange mt-0.5">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                </svg>
+              </span>
+              <a href="mailto:Info@coddymaster.com" class="text-white/70 hover:text-brand-orange text-sm transition-colors mt-0.5">Info@coddymaster.com</a>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-brand-orange mt-0.5">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3M12 18.75h.008v.008H12v-.008Z" />
+                </svg>
+              </span>
+              <div class="text-white/70 text-sm mt-0.5 space-y-1">
+                <a href="tel:+201005275315" class="block hover:text-brand-orange transition-colors" style="direction: ltr;">+20 100 527 5315</a>
+                <a href="tel:+201157561861" class="block hover:text-brand-orange transition-colors" style="direction: ltr;">+20 115 756 1861</a>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-brand-orange mt-0.5">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                </svg>
+              </span>
+              <span class="text-white/70 text-sm mt-0.5" data-i18n="footer-location">New Damietta, Egypt</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-white/70 text-xs text-center md:text-left" data-i18n="footer-copy">
+          &copy; 2026 Coddy Master. All rights reserved.
+        </p>
+        <div class="flex items-center gap-2">
+          <span class="text-white/70 text-xs" data-i18n="footer-powered">Powered by</span>
+          <img src="assets/odoo-logo.jpeg" alt="Odoo" class="h-5 opacity-70">
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- VIDEO MODAL (Fullscreen Lightbox) -->
+  <div id="video-modal"
+       class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-400"
+       role="dialog"
+       aria-modal="true"
+       aria-label="Video Player">
+    <!-- Close Overlay -->
+    <div class="absolute inset-0 cursor-pointer" id="video-modal-overlay"></div>
+    <!-- Modal Content -->
+    <div class="relative w-full max-w-5xl mx-4 md:mx-12 video-modal-inner scale-95 transition-transform duration-400">
+      <!-- Close Button -->
+      <button
+        id="video-modal-close"
+        class="absolute -top-12 right-0 text-white/60 hover:text-white text-sm font-mono tracking-widest flex items-center gap-2 transition-colors duration-200"
+        aria-label="Close video">
+        <span>CLOSE</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      <!-- 16:9 iframe container -->
+      <div class="relative aspect-video w-full border border-white/10">
+        <iframe
+          id="video-iframe"
+          src=""
+          class="absolute inset-0 w-full h-full"
+          allow="autoplay; encrypted-media; fullscreen"
+          allowfullscreen
+          title="Video Player">
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI CHATBOT WIDGET -->
+  <div id="chatbot-fab" class="fixed bottom-6 end-6 z-[800]">
+    <div id="chatbot-window" class="absolute bottom-[4.5rem] end-0 w-[min(350px,calc(100vw-2rem))] bg-white border border-gray-100 shadow-[0_24px_80px_-12px_rgba(0,0,0,0.18)] overflow-hidden origin-bottom-end scale-90 translate-y-5 opacity-0 pointer-events-none transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]" aria-hidden="true">
+      <div class="px-5 py-4 flex items-center gap-3" style="background: linear-gradient(135deg, #FF4A1C, #FF5A2F);">
+        <div class="w-10 h-10 rounded-full bg-white/20 border-2 border-white/30 flex items-center justify-center text-white text-lg shrink-0">Ã°Å¸Â¤â€“</div>
+        <div>
+          <div class="font-bold text-white text-sm" data-i18n="chat-name">Coddy Assistant</div>
+          <div class="text-white/80 text-xs flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-green-400"></span><span data-i18n="chat-status">Online Ã¢â‚¬â€ replies instantly</span></div>
+        </div>
+      </div>
+      <div id="chat-messages" class="p-4 h-[260px] overflow-y-auto flex flex-col gap-3">
+        <div class="chat-msg chat-msg-bot">
+          <div class="chat-bubble chat-bubble-bot" data-i18n="chat-welcome">Ã°Å¸â€˜â€¹ Hi! I'm the Coddy Master assistant. How can I help you today?</div>
+          <div class="chat-time" data-i18n="chat-now">Just now</div>
+        </div>
+      </div>
+      <div class="px-4 pt-2 flex flex-wrap gap-2" id="chat-quick-replies">
+        <button type="button" class="chat-quick" data-rk="book" data-i18n="chat-q1">Ã°Å¸â€œâ€¦ Book a Consultation</button>
+        <button type="button" class="chat-quick" data-rk="pricing" data-i18n="chat-q2">Ã°Å¸â€™Â° Our Pricing</button>
+        <button type="button" class="chat-quick" data-rk="services" data-i18n="chat-q3">Ã¢Å¡â„¢Ã¯Â¸Â Our Services</button>
+        <button type="button" class="chat-quick" data-rk="odoo" data-i18n="chat-q4">Ã°Å¸â€Â§ Odoo Modules</button>
+      </div>
+      <div class="p-4 border-t border-gray-100 flex gap-2 items-center">
+        <input type="text" id="chat-input" class="flex-1 px-3 py-2 bg-[#F8F9FA] border border-gray-200 text-sm focus:outline-none focus:border-brand-orange transition-colors" data-i18n-placeholder="chat-input-ph" placeholder="Type a message..." aria-label="Chat message">
+        <button type="button" id="chat-send" class="w-9 h-9 rounded-full flex items-center justify-center text-white shrink-0 transition-transform hover:scale-105" style="background:#FF4A1C" aria-label="Send">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M13 7.5L2 2l2.5 5.5L2 13l11-5.5z" fill="currentColor"/></svg>
+        </button>
+      </div>
+    </div>
+    <button type="button" id="chat-toggle" class="chat-fab-btn w-14 h-14 rounded-full flex items-center justify-center text-white shadow-[0_8px_28px_-4px_rgba(255,74,28,0.5)] transition-transform hover:scale-105 relative" style="background: linear-gradient(135deg, #FF4A1C, #FF5A2F);" aria-label="Open chat" aria-expanded="false">
+      <span class="chat-fab-pulse absolute inset-[-4px] rounded-full border-2 border-brand-orange opacity-0"></span>
+      <svg id="chat-icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg id="chat-icon-close" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" class="hidden"><path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"/></svg>
+    </button>
+  </div>
+
+  <!-- GSAP Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- Lenis Smooth Scroll (Task 1) -->
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
+
+
+
+
+
